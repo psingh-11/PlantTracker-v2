@@ -2,7 +2,8 @@
 
     var table = $('#plantTable').DataTable(
         {
-            
+            // test
+
             "lengthMenu": [15, 25, 50, 75, 100],
             
             "columnDefs": [
