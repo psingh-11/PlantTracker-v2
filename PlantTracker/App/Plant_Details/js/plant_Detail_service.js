@@ -24,6 +24,30 @@
             });
 
             return r;
+        },
+
+        SetDetails: function (empId) {
+
+            var errorMsg = "Missing a parameter!";
+            if (empId == null) { throw errorMsg; return; }
+
+            var pack = {
+                "EmpId": empId
+            };
+            var r = toolbox.CreateAjaxResponse();
+            $.ajax({
+                type: "POST",
+                url: toolbox.GetLocationUrl() + "/Home/GetDetails",
+                dataType: "json",
+                data: JSON.stringify(pack),
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                cache: false
+            }).done(function (result) {
+                r._JsonResultHelper(result);
+            });
+
+            return r;
         }
     };
 

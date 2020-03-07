@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,7 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\common\js\toolbox.js" />
-    <Content Include="App\home\js\plant_table.js" />
+    <Content Include="App\Plant_Details\js\plant_detail.js" />
+    <Content Include="App\Plant_Details\js\plant_Detail_service.js" />
+    <Content Include="App\Plant_table\js\plant_table.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -245,7 +248,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\PlantTable.cshtml" />
+    <Content Include="Views\Plant\PlantTable.cshtml" />
+    <Content Include="Views\Plant\PlantDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

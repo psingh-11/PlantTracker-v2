@@ -29,7 +29,7 @@ namespace PlantTracker
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 "~/Scripts/dataTable.min.js",
-                "~/app/home/js/plant_table.js",
+                "~/app/Plant_table/js/plant_table.js",
                 "~/app/common/js/toolbox.js"
 
 

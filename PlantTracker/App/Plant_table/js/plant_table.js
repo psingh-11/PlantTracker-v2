@@ -4,8 +4,7 @@
         {
             // test
 
-            "lengthMenu": [15, 25, 50, 75, 100],
-            
+            "lengthMenu": [15, 25, 50, 75, 100],           
             "columnDefs": [
                 {
                     "width": "2%", "targets": [4],
@@ -32,7 +31,7 @@
             "serverSide": true,
             "ajax":
                 {
-                    "url": toolbox.GetLocationUrl() + "/Home/GetData",
+                    "url": toolbox.GetLocationUrl() + "/Plant/GetData",
                     "type": "POST",
                     "dataType": "JSON"
                 },
