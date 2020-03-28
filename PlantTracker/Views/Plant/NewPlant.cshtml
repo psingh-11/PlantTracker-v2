@@ -1,0 +1,174 @@
+﻿@model  PlantTracker.Models.Dto.PlantDto
+@{
+    ViewBag.Title = "NewPlant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="PlantTable">Plant Table</a></li>
+        <li class="breadcrumb-item active" aria-current="page">New Plant</li>
+    </ol>
+</nav>
+<hr />
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">New Plant</h1>
+    </div>
+</div>
+<hr />
+
+@using (Html.BeginForm("NewImages", "Plant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.images, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.images, "", new { @type = "file", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-success">
+                @ViewBag.UploadStatus
+            </div>
+        </div>
+
+    </div>
+}
+
+
+@using (Html.BeginForm("NewPlant", "Plant", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+
+    @*<div class="col-md-10">
+            @Html.TextBoxFor(model => model.images, "", new { @type = "file", @multiple = "multiple" })
+            @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
+        </div>*@
+
+
+
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="NewPlantInfo">
+            <div class="Name">
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control" })
+            </div>
+            <br />
+            <div class="Type">
+                @Html.TextBoxFor(m => m.Type, new { placeholder = "Type", @class = "form-control" })
+            </div>
+            <br />
+            <div class="Genus">
+                @Html.TextBoxFor(m => m.Genus, new { placeholder = "Genus", @class = "form-control" })
+            </div>
+            <br />
+            <div class="Species">
+                @Html.TextBoxFor(m => m.Species, new { placeholder = "Species", @class = "form-control" })
+            </div>
+            <br />
+            <div class="Subspecies">
+                @Html.TextBoxFor(m => m.SubSpecies, new { placeholder = "Sub-Species", @class = "form-control" })
+            </div>
+            <br />
+            <div class="Count">
+                @Html.TextBoxFor(m => m.Count, new { placeholder = "Count", @class = "form-control" })
+            </div>
+            <br />
+            <div class="Notes">
+                @Html.TextAreaFor(m => m.Notes, new { placeholder = "Notes", @class = "form-control" })
+            </div>
+            <br />
+            @*<div class="Parent 1">
+                    @Html.Label("Parent One")
+                    <br />
+                    @Html.DropDownListFor(m => m.ParentOneID, new SelectList(Model.Plant11))
+                </div>
+                <br />
+                <div class="Parent 2">
+                    @Html.Label("Parent Two")
+                    <br />
+                    @Html.DropDownListFor(m => m.ParentTwoID, new SelectList(Model.Plant12))
+                </div>*@
+            <hr />
+        </div>
+        <div class="InsertPlant">
+            <input type="submit" value="Insert" class="btn btn-default" />
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="Custom_Value_Plant_Info">
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues1.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue1">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues1.Notes, new { placeholder = "Custom Value 1", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues2.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue2">
+                        <div class="card card-body" style="border:thin">
+                            @Html.TextAreaFor(m => m.CustomValues2.Notes, new { placeholder = "Custom Value 2", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues3.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue3">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues3.Notes, new { placeholder = "Custom Value 3", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues4.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue4">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues4.Notes, new { placeholder = "Custom Value 4", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues5.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue5">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues5.Notes, new { placeholder = "Custom Value 5", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </p>
+        </div>
+    </div>
+}
+<br />
+

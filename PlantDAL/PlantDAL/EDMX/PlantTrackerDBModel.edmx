@@ -134,6 +134,7 @@
           <Property Name="ParentOneID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ParentTwoID" Type="uniqueidentifier" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
           <Property Name="Genus" Type="varchar" MaxLength="50" />
           <Property Name="Species" Type="varchar" MaxLength="50" />
@@ -550,6 +551,7 @@
           <Property Name="ParentOneID" Type="Guid" Nullable="false" />
           <Property Name="ParentTwoID" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Genus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Species" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -944,6 +946,7 @@
                 <ScalarProperty Name="ParentOneID" ColumnName="ParentOneID" />
                 <ScalarProperty Name="ParentTwoID" ColumnName="ParentTwoID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Genus" ColumnName="Genus" />
                 <ScalarProperty Name="Species" ColumnName="Species" />

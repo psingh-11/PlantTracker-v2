@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="71e70e6433a847858a4129c8aaac7838" Name="Diagram1" ZoomLevel="39">
+      <Diagram DiagramId="46785ca8387b4ef7b4b93eaa15d95bff" Name="Diagram1" ZoomLevel="79">
         <EntityTypeShape EntityType="PlantTrackerDBModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.AspNetRoles" Width="1.5" PointX="7.75" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.AspNetUserClaims" Width="1.5" PointX="12.25" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.AspNetUserLogins" Width="1.5" PointX="12.25" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.AspNetUsers" Width="1.5" PointX="10" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues1" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues2" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues3" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues4" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues5" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues2" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues3" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues4" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantTrackerDBModel.CustomValues5" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.Images" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PlantTrackerDBModel.Journal" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantTrackerDBModel.Journal" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PlantTrackerDBModel.Plant" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="PlantTrackerDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="PlantTrackerDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />

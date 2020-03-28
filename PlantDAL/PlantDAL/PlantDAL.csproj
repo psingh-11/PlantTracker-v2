@@ -50,60 +50,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="EDMX\AspNetRoles.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\AspNetUserClaims.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\AspNetUserLogins.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\AspNetUsers.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\CustomValues1.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\CustomValues2.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\CustomValues3.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\CustomValues4.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\CustomValues5.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\C__MigrationHistory.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\Images.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\Journal.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\Plant.cs">
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDMX\PlantDBModel.Context.cs">
+    <Compile Include="EDMX\PlantTrackerDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlantDBModel.Context.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDMX\PlantDBModel.cs">
+    <Compile Include="EDMX\PlantTrackerDBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlantDBModel.tt</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDMX\PlantDBModel.Designer.cs">
+    <Compile Include="EDMX\PlantTrackerDBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlantDBModel.edmx</DependentUpon>
+      <DependentUpon>PlantTrackerDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CustomValueFiveCRUD.cs" />
@@ -117,28 +116,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="EDMX\PlantDBModel.edmx">
+    <EntityDeploy Include="EDMX\PlantTrackerDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlantDBModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlantTrackerDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EDMX\PlantDBModel.edmx.diagram">
-      <DependentUpon>PlantDBModel.edmx</DependentUpon>
+    <None Include="EDMX\PlantTrackerDBModel.edmx.diagram">
+      <DependentUpon>PlantTrackerDBModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="EDMX\PlantDBModel.Context.tt">
+    <Content Include="EDMX\PlantTrackerDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlantDBModel.edmx</DependentUpon>
-      <LastGenOutput>PlantDBModel.Context.cs</LastGenOutput>
+      <DependentUpon>PlantTrackerDBModel.edmx</DependentUpon>
+      <LastGenOutput>PlantTrackerDBModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EDMX\PlantDBModel.tt">
+    <Content Include="EDMX\PlantTrackerDBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlantDBModel.edmx</DependentUpon>
-      <LastGenOutput>PlantDBModel.cs</LastGenOutput>
+      <DependentUpon>PlantTrackerDBModel.edmx</DependentUpon>
+      <LastGenOutput>PlantTrackerDBModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

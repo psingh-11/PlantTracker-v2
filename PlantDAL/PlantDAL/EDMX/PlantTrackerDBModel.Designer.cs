@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Praveen\Desktop\Stockton Programming Assignments\Software & Security\PlantDAL\PlantDAL\EDMX\PlantDBModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantDAL\PlantDAL\EDMX\PlantTrackerDBModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -28,6 +28,7 @@ namespace PlantDAL.EDMX
         public System.Guid ParentOneID { get; set; }
         public Nullable<System.Guid> ParentTwoID { get; set; }
         public string Name { get; set; }
+        public int Count { get; set; }
         public string Type { get; set; }
         public string Genus { get; set; }
         public string Species { get; set; }
