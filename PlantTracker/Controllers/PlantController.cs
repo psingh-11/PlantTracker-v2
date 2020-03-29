@@ -22,22 +22,10 @@ namespace PlantTracker.Controllers
             return View(plantDto);
         }
 
-        //[HttpPost]
-        //public ActionResult NewPlant(PlantDto plantDto)
-        //{
-
-
-        //    return View(plantDto);
-        //}
-
         [HttpPost]
-        public ActionResult NewPlant(PlantDto plantDto)
+        public ActionResult NewImages(HttpPostedFileBase[] images)
         {
-            Guid id = Guid.NewGuid();
-            plantDto.ID = id;
-            plantDto.UserID = User.Identity.GetUserId();
-
-            foreach (HttpPostedFileBase file in Request.Files)
+            foreach (HttpPostedFileBase file in images)
             {
                 //Checking file is available to save.  
                 if (file != null)
@@ -47,10 +35,36 @@ namespace PlantTracker.Controllers
                     //Save file to server folder  
                     file.SaveAs(ServerSavePath);
                     //assigning file uploaded status to ViewBag for showing message to user.  
-                    //ViewBag.UploadStatus = files.Count().ToString() + " files uploaded successfully.";
+                    ViewBag.UploadStatus = images.Count().ToString() + " files uploaded successfully.";
                 }
 
             }
+            var plantDto = new PlantDto();
+            return View(plantDto);
+        }
+
+        [HttpPost]
+        public ActionResult NewPlant(PlantDto plantDto)
+        {
+            Guid id = Guid.NewGuid();
+            plantDto.ID = id;
+            plantDto.UserID = User.Identity.GetUserId();
+            var file = Request.Files["images"];
+
+            //foreach (HttpPostedFileBase file in plantDto.images)
+            //{
+            //    //Checking file is available to save.  
+            //    if (file != null)
+            //    {
+            //        var InputFileName = Path.GetFileName(file.FileName);
+            //        var ServerSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
+            //        //Save file to server folder  
+            //        file.SaveAs(ServerSavePath);
+            //        //assigning file uploaded status to ViewBag for showing message to user.  
+            //        //ViewBag.UploadStatus = files.Count().ToString() + " files uploaded successfully.";
+            //    }
+
+            //}
 
 
 

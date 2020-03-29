@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,12 @@ namespace PlantTracker.Models.Dto
         public string SubSpecies { get; set; }
         public string Notes { get; set; }
 
+        public PlantDto()
+        {
+            images = new List<HttpPostedFileBase>();
+        }
+
+     
         public List<HttpPostedFileBase> images { get; set; }
 
         public CustomValueDto CustomValues1 { get; set; }
