@@ -46,12 +46,10 @@
 
 
     <div class="col-md-10">
-            @Html.TextBoxFor(model => model.images, "", new { @type = "file", @multiple = "multiple" })
-            @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
-        </div>
-
-    @*@Html.TextBoxFor(m => m.images, new { type = "file", name = "images" })*@
-
+            @Html.TextBoxFor(model => model.Images, "", new { @type = "file", @multiple = "multiple" })
+            @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
+    </div>
+    <br />
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="NewPlantInfo">
             <div class="Name">
@@ -85,14 +83,14 @@
             @*<div class="Parent 1">
                     @Html.Label("Parent One")
                     <br />
-                    @Html.DropDownListFor(m => m.ParentOneID, new SelectList(Model.Plant11))
-                </div>
+                    @Html.DropDownListFor(m => m.ParentOneID, new SelectList(Model.ParentOneID))
+            </div>
+            <br />
+            <div class="Parent 2">
+                @Html.Label("Parent Two")
                 <br />
-                <div class="Parent 2">
-                    @Html.Label("Parent Two")
-                    <br />
-                    @Html.DropDownListFor(m => m.ParentTwoID, new SelectList(Model.Plant12))
-                </div>*@
+                @Html.DropDownListFor(m => m.ParentTwoID, new SelectList(Model.Plant12))
+            </div>*@
             <hr />
         </div>
         <div class="InsertPlant">

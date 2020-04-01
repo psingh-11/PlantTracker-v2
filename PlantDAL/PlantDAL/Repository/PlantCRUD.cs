@@ -11,11 +11,18 @@ namespace PlantDAL.Repository
     {
         public static void Insert(Plant plant)
         {
-            using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+            try
             {
-                ctx.Plant.Add(plant);
-                ctx.SaveChanges();
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    ctx.Plant.Add(plant);
+                    ctx.SaveChanges();
+                }
             }
+            catch(Exception ex)
+            {
+                ex.ToString();
+            }     
         }
 
         public static void Update(Plant plant)

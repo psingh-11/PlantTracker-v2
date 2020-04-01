@@ -298,18 +298,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Plant_Plant">
-          <End Role="Plant" Type="Self.Plant" Multiplicity="1" />
-          <End Role="Plant1" Type="Self.Plant" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Plant">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Plant1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Plant_PlantParentOne">
           <End Role="Plant" Type="Self.Plant" Multiplicity="1" />
           <End Role="Plant1" Type="Self.Plant" Multiplicity="*" />
@@ -396,10 +384,6 @@
           <AssociationSet Name="FK_Plant_CustomValues5" Association="Self.FK_Plant_CustomValues5">
             <End Role="CustomValues5" EntitySet="CustomValues5" />
             <End Role="Plant" EntitySet="Plant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Plant_Plant" Association="Self.FK_Plant_Plant">
-            <End Role="Plant" EntitySet="Plant" />
-            <End Role="Plant1" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_PlantParentOne" Association="Self.FK_Plant_PlantParentOne">
             <End Role="Plant" EntitySet="Plant" />
@@ -569,12 +553,10 @@
           <NavigationProperty Name="CustomValues5" Relationship="Self.FK_Plant_CustomValues5" FromRole="Plant" ToRole="CustomValues5" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Images_Plant" FromRole="Plant" ToRole="Images" />
           <NavigationProperty Name="Journal" Relationship="Self.FK_Journal_Plant" FromRole="Plant" ToRole="Journal" />
-          <NavigationProperty Name="Plant1" Relationship="Self.FK_Plant_Plant" FromRole="Plant" ToRole="Plant1" />
-          <NavigationProperty Name="Plant2" Relationship="Self.FK_Plant_Plant" FromRole="Plant1" ToRole="Plant" />
-          <NavigationProperty Name="Plant11" Relationship="Self.FK_Plant_PlantParentOne" FromRole="Plant" ToRole="Plant1" />
-          <NavigationProperty Name="Plant3" Relationship="Self.FK_Plant_PlantParentOne" FromRole="Plant1" ToRole="Plant" />
-          <NavigationProperty Name="Plant12" Relationship="Self.FK_Plant_PlantParentTwo" FromRole="Plant" ToRole="Plant1" />
-          <NavigationProperty Name="Plant4" Relationship="Self.FK_Plant_PlantParentTwo" FromRole="Plant1" ToRole="Plant" />
+          <NavigationProperty Name="Plant1" Relationship="Self.FK_Plant_PlantParentOne" FromRole="Plant" ToRole="Plant1" />
+          <NavigationProperty Name="Plant2" Relationship="Self.FK_Plant_PlantParentOne" FromRole="Plant1" ToRole="Plant" />
+          <NavigationProperty Name="Plant11" Relationship="Self.FK_Plant_PlantParentTwo" FromRole="Plant" ToRole="Plant1" />
+          <NavigationProperty Name="Plant3" Relationship="Self.FK_Plant_PlantParentTwo" FromRole="Plant1" ToRole="Plant" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -700,18 +682,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Plant_Plant">
-          <End Role="Plant" Type="Self.Plant" Multiplicity="1" />
-          <End Role="Plant1" Type="Self.Plant" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Plant">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Plant1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Plant_PlantParentOne">
           <End Role="Plant" Type="Self.Plant" Multiplicity="1" />
           <End Role="Plant1" Type="Self.Plant" Multiplicity="*" />
@@ -793,10 +763,6 @@
           <AssociationSet Name="FK_Journal_Plant" Association="Self.FK_Journal_Plant">
             <End Role="Plant" EntitySet="Plant" />
             <End Role="Journal" EntitySet="Journal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Plant_Plant" Association="Self.FK_Plant_Plant">
-            <End Role="Plant" EntitySet="Plant" />
-            <End Role="Plant1" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_PlantParentOne" Association="Self.FK_Plant_PlantParentOne">
             <End Role="Plant" EntitySet="Plant" />

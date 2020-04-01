@@ -23,7 +23,7 @@ namespace PlantTracker
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.css",                    
                       "~/Content/site.css"));
 
 
@@ -32,9 +32,15 @@ namespace PlantTracker
                 "~/app/Plant_table/js/plant_table.js",
                 "~/app/common/js/toolbox.js"
 
-
-
                 ));
+
+            bundles.Add(new StyleBundle("~/Plant_Details/css").Include(
+                "~/App/Plant_Details/css/plant_details.css"));
+
+
+
+
+
         }
     }
 }

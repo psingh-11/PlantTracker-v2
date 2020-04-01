@@ -19,8 +19,8 @@ namespace PlantDAL.EDMX
         {
             this.Images = new HashSet<Images>();
             this.Journal = new HashSet<Journal>();
+            this.Plant1 = new HashSet<Plant>();
             this.Plant11 = new HashSet<Plant>();
-            this.Plant12 = new HashSet<Plant>();
         }
     
         public System.Guid ID { get; set; }
@@ -49,13 +49,11 @@ namespace PlantDAL.EDMX
         public virtual ICollection<Images> Images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Journal> Journal { get; set; }
-        public virtual Plant Plant1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Plant> Plant1 { get; set; }
         public virtual Plant Plant2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Plant> Plant11 { get; set; }
         public virtual Plant Plant3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Plant> Plant12 { get; set; }
-        public virtual Plant Plant4 { get; set; }
     }
 }

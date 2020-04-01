@@ -23,11 +23,10 @@ namespace PlantTracker.Models.Dto
 
         public PlantDto()
         {
-            images = new List<HttpPostedFileBase>();
+            Images = new List<HttpPostedFileBase>();
         }
 
-     
-        public List<HttpPostedFileBase> images { get; set; }
+        public List<HttpPostedFileBase> Images { get; set; }
 
         public CustomValueDto CustomValues1 { get; set; }
         public CustomValueDto CustomValues2 { get; set; }

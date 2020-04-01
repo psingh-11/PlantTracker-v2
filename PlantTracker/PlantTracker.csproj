@@ -176,10 +176,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PlantController.cs" />
+    <Compile Include="Controllers\Plant\PlantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mapper\ImageMapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dto\CustomValueDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -190,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\common\js\toolbox.js" />
+    <Content Include="App\Plant_Details\css\plant_detail.css" />
     <Content Include="App\Plant_Details\js\plant_detail.js" />
     <Content Include="App\Plant_Details\js\plant_Detail_service.js" />
     <Content Include="App\Plant_table\js\plant_table.js" />
@@ -201,6 +203,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Plant\8451acdc-ab74-46ec-89ea-9abf5592e03f\457d280e-82f9-4601-941c-230d3bcaf219.jpg" />
+    <Content Include="Images\Plant\8451acdc-ab74-46ec-89ea-9abf5592e03f\5f18d9ff-240a-4ef4-a487-7a9bc25e584c.jpg" />
+    <Content Include="Images\Plant\8451acdc-ab74-46ec-89ea-9abf5592e03f\ba61fd38-fc69-4ca9-82b5-37e2e277f85c.JPG" />
     <Content Include="Images\test.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
