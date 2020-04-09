@@ -9,6 +9,17 @@ namespace PlantDAL.Repository
 {
     public static class PlantCRUD
     {
+        static Dictionary<int, string> ColumnNames = new Dictionary<int, string>()
+        {
+            {0, "ID"},
+            {1,  "Name" },
+            {2, "Type" },
+            {3, "Species" },
+            {4, "Count" },
+            {5, "Description" },
+
+        };
+
         public static void Insert(Plant plant)
         {
             try
@@ -87,6 +98,9 @@ namespace PlantDAL.Repository
                 }
 
             }
+            var colName = GetCloumnName(Convert.ToInt32(col));
+
+            query += " ORDER BY " + colName + " " + orderby;
 
             query += " OFFSET " + startRec.ToString() + " ROWS ";
             query += " FETCH NEXT " + pageSize.ToString() + " ROWS ONLY ";
@@ -99,5 +113,13 @@ namespace PlantDAL.Repository
             return plants;
 
         }
+
+        static string GetCloumnName(int Idx)
+        {
+            string value = "";
+            ColumnNames.TryGetValue(Idx, out value);
+            return value;
+        }
+
     }
 }

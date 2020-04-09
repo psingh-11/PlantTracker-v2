@@ -11,10 +11,17 @@ namespace PlantDAL.Repository
     {
         public static void Insert(Images img)
         {
-            using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+            try
             {
-                ctx.Images.Add(img);
-                ctx.SaveChanges();
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    ctx.Images.Add(img);
+                    ctx.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                var err = ex.Message;
             }
         }
 
@@ -62,7 +69,7 @@ namespace PlantDAL.Repository
             List<Images> images = new List<Images>();
             using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
             {
-
+                images = ctx.Images.Where(x => x.PlantID == plantID).ToList();
             }
 
             return images;

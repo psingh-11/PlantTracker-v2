@@ -25,7 +25,7 @@ namespace PlantDAL.EDMX
     
         public System.Guid ID { get; set; }
         public string UserID { get; set; }
-        public System.Guid ParentOneID { get; set; }
+        public Nullable<System.Guid> ParentOneID { get; set; }
         public Nullable<System.Guid> ParentTwoID { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
@@ -40,11 +40,11 @@ namespace PlantDAL.EDMX
         public Nullable<System.Guid> CustomValueFiveID { get; set; }
         public string Notes { get; set; }
     
-        public virtual CustomValues1 CustomValues1 { get; set; }
-        public virtual CustomValues2 CustomValues2 { get; set; }
-        public virtual CustomValues3 CustomValues3 { get; set; }
-        public virtual CustomValues4 CustomValues4 { get; set; }
-        public virtual CustomValues5 CustomValues5 { get; set; }
+        public virtual CustomValues CustomValues { get; set; }
+        public virtual CustomValues CustomValues1 { get; set; }
+        public virtual CustomValues CustomValues2 { get; set; }
+        public virtual CustomValues CustomValues3 { get; set; }
+        public virtual CustomValues CustomValues4 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Images> Images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

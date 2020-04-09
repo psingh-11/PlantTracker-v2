@@ -219,3 +219,6 @@ C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTrac
 C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\PlantDAL.dll
 C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\PlantDAL.pdb
 C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\PlantDAL.dll.config
+C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\AutoMapper.dll
+C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\AutoMapper.pdb
+C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\AutoMapper.xml

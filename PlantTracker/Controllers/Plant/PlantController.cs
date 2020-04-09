@@ -18,6 +18,17 @@ namespace PlantTracker.Controllers
         public ActionResult NewPlant()
         {
             var plantDto = new PlantDto();
+            List<Plant> plantList = new List<Plant>();
+
+            plantList = PlantCRUD.GetByUserID(User.Identity.GetUserId());
+            foreach(var plant in plantList)
+            {
+                plantDto.Plants.Add(new SelectListItem
+                {
+                    Text = plant.Name,
+                    Value = plant.ID.ToString()
+                });
+            }
 
             return View(plantDto);
         }
@@ -25,52 +36,122 @@ namespace PlantTracker.Controllers
         [HttpPost]
         public ActionResult NewPlant(PlantDto plantDto)
         {
-            Plant plant = new Plant();
-            plant.ID = Guid.NewGuid();
-            plant.Name = "Please Work";
-            PlantCRUD.Insert(plant);
-
             Guid id = Guid.NewGuid();
             plantDto.ID = id;
             plantDto.UserID = User.Identity.GetUserId();
 
             var plantDir = Server.MapPath("~/Images/Plant/" + id.ToString());
-            Mapper.ImageMapper.MapHTTPToImage(plantDto.Images, plantDto, plantDir);
-
-
+            List<Images> imgList = Mappers.ImageMapper.MapHTTPToImage(plantDto.Images, plantDto, plantDir);
+            Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
 
             if (plantDto.CustomValues1 != null)
             {
                 plantDto.CustomValues1.ID = Guid.NewGuid();
+                CustomValues cv1 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues1, 1) as CustomValues;
+                plant.CustomValues = cv1;
             }
             if (plantDto.CustomValues2 != null)
             {
                 plantDto.CustomValues2.ID = Guid.NewGuid();
+                CustomValues cv2 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues2, 2) as CustomValues;
+                plant.CustomValues1 = cv2;
             }
             if (plantDto.CustomValues3 != null)
             {
                 plantDto.CustomValues3.ID = Guid.NewGuid();
+                CustomValues cv3 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues3, 3) as CustomValues;
+                plant.CustomValues2 = cv3;
             }
             if (plantDto.CustomValues4 != null)
             {
                 plantDto.CustomValues4.ID = Guid.NewGuid();
+                CustomValues cv4 =  Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues4, 4) as CustomValues;
+                plant.CustomValues3 = cv4;
             }
             if (plantDto.CustomValues5 != null)
             {
                 plantDto.CustomValues5.ID = Guid.NewGuid();
+                CustomValues cv5 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues5, 5) as CustomValues;
+                plant.CustomValues4 = cv5;
             }
 
-            //make a mapper from dto to dal obj
-            //PlantCRUD.Insert(plant);
-            return PlantTable();
+            PlantCRUD.Insert(plant);
+
+
+            return RedirectToAction("PlantTable");
+        }
+
+        [HttpPost]
+        public ActionResult GetPlantDetails(string PlantID)
+        {
+            return RedirectToAction("PlantDetails", new { plantId = PlantID });
         }
 
         [HttpGet]
-        public ActionResult PlantDetails(/*Guid plantId*/)
+        public ActionResult PlantDetails(string plantId)
         {
-            //Plant plant = PlantCRUD.GetByID(plantId);
-            Plant plant = new Plant();
-            return View(plant);
+            Plant plant = PlantCRUD.GetByID(Guid.Parse(plantId));
+            PlantDto dto = Mappers.PlantMapper.MapDALToDto(plant);
+
+            List<Images> imgs = ImageCRUD.GetByPlantID(Guid.Parse(plantId));
+ 
+            foreach(var img in imgs)
+            {
+                var idx = img.ImageFilePath.ToLower().IndexOf(@"\images\");
+                if(idx != -1)
+                {
+                    var imgpath = "http://localhost:49592" + img.ImageFilePath.Substring(idx).Replace("\\", "/");
+                    dto.imageFilePath.Add(imgpath);
+                }
+            }
+               
+            return View(dto);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult PlantDetails(PlantDto plantDto)
+        {
+            var plantDir = Server.MapPath("~/Images/Plant/" + plantDto.ID.ToString());
+            List<Images> imgList = Mappers.ImageMapper.MapHTTPToImage(plantDto.Images, plantDto, plantDir);
+            Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
+
+            if (plantDto.CustomValues1 != null)
+            {
+                plantDto.CustomValues1.ID = Guid.NewGuid();
+                CustomValues cv1 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues1, 1) as CustomValues;
+                plant.CustomValues = cv1;
+            }
+            if (plantDto.CustomValues2 != null)
+            {
+                plantDto.CustomValues2.ID = Guid.NewGuid();
+                CustomValues cv2 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues2, 2) as CustomValues;
+                plant.CustomValues1 = cv2;
+            }
+            if (plantDto.CustomValues3 != null)
+            {
+                plantDto.CustomValues3.ID = Guid.NewGuid();
+                CustomValues cv3 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues3, 3) as CustomValues;
+                plant.CustomValues2 = cv3;
+            }
+            if (plantDto.CustomValues4 != null)
+            {
+                plantDto.CustomValues4.ID = Guid.NewGuid();
+                CustomValues cv4 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues4, 4) as CustomValues;
+                plant.CustomValues3 = cv4;
+            }
+            if (plantDto.CustomValues5 != null)
+            {
+                plantDto.CustomValues5.ID = Guid.NewGuid();
+                CustomValues cv5 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues5, 5) as CustomValues;
+                plant.CustomValues4 = cv5;
+            }
+
+            PlantCRUD.Update(plant);
+
+
+            return RedirectToAction("PlantTable");
         }
 
         public ActionResult PlantTable()
@@ -94,27 +175,35 @@ namespace PlantTracker.Controllers
                 int startRec = Convert.ToInt32(Request.Form.GetValues("start")[0]);
                 int pageSize = Convert.ToInt32(Request.Form.GetValues("length")[0]);
 
-                //AdditionalInfoDb db = new AdditionalInfoDb(_setting.DbConnection, _setting.TblProfessionals, _setting.TblAdditionalInfo);
-                //var data = db.GetData(startRec, pageSize, order, orderDir, search);
-                //int totalRecords = db.GetTotalCount();
-                //int recFilter = db.GetFilteredCount(startRec, pageSize, search);
-
-                var data = new[]
+               
+                var listOfPlants = PlantCRUD.Search(strCurrentUserId, search, orderDir,order, startRec, pageSize);
+                var tablePtants = new List<PlantTableDto>();
+                foreach(var plant in listOfPlants)
                 {
-                        new {
-                            PlantId = "12002",
-                            Image = @"\Images\test.jpg",
-                            Name = "test",
-                            Count = 2,
-                            Type = "Indoor Plant",
-                            Species = "test species",
-                            Description = "This is test "
-                        }
-                }.ToList();
+                    List<Images> images = ImageCRUD.GetByPlantID(plant.ID);
+                    PlantTableDto tableDto = new PlantTableDto();
+                    tableDto.PlantId = plant.ID.ToString();
+                    tableDto.Name = plant.Name;
+                    tableDto.Type = plant.Type;
+                    tableDto.Count = plant.Count.ToString();
+                    tableDto.Species = plant.Species;
+                    tableDto.Description = plant.Notes;
+                    string firstImage = "";
+                    if(images.Count() > 0)
+                    {
+                        firstImage = images.First().ImageFilePath;
+                        int idx = firstImage.ToLower().IndexOf(@"\images\");
+                        firstImage = firstImage.Substring(idx);
+                    }
+                    tableDto.Image =  firstImage;
+                    tablePtants.Add(tableDto);
+                }
 
+                int totalRecords = PlantCRUD.GetByUserID(strCurrentUserId).Count();
+                int recFilter = listOfPlants.Count();
 
                 // Loading drop down lists.
-                result = this.Json(new { draw = Convert.ToInt32(draw), recordsTotal = data.Count(), recordsFiltered = 1, data = data }, JsonRequestBehavior.AllowGet);
+                result = this.Json(new { draw = Convert.ToInt32(draw), recordsTotal = listOfPlants.Count(), recordsFiltered = recFilter, data = tablePtants }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

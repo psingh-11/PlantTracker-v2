@@ -30,11 +30,7 @@ namespace PlantDAL.EDMX
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<CustomValues1> CustomValues1 { get; set; }
-        public virtual DbSet<CustomValues2> CustomValues2 { get; set; }
-        public virtual DbSet<CustomValues3> CustomValues3 { get; set; }
-        public virtual DbSet<CustomValues4> CustomValues4 { get; set; }
-        public virtual DbSet<CustomValues5> CustomValues5 { get; set; }
+        public virtual DbSet<CustomValues> CustomValues { get; set; }
         public virtual DbSet<Images> Images { get; set; }
         public virtual DbSet<Journal> Journal { get; set; }
         public virtual DbSet<Plant> Plant { get; set; }

@@ -66,44 +66,12 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="CustomValues1">
+        <EntityType Name="CustomValues">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="4000" />
-        </EntityType>
-        <EntityType Name="CustomValues2">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="4000" />
-        </EntityType>
-        <EntityType Name="CustomValues3">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="4000" />
-        </EntityType>
-        <EntityType Name="CustomValues4">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="4000" />
-        </EntityType>
-        <EntityType Name="CustomValues5">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
           <Property Name="Notes" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="Images">
@@ -113,7 +81,7 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PlantID" Type="uniqueidentifier" />
           <Property Name="JournalID" Type="uniqueidentifier" />
-          <Property Name="ImageFilePath" Type="varchar" MaxLength="100" />
+          <Property Name="ImageFilePath" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Journal">
           <Key>
@@ -121,9 +89,10 @@
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DateModified" Type="datetime" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="PlantID" Type="uniqueidentifier" />
-          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="Plant">
           <Key>
@@ -131,14 +100,14 @@
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ParentOneID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParentOneID" Type="uniqueidentifier" />
           <Property Name="ParentTwoID" Type="uniqueidentifier" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="50" />
-          <Property Name="Genus" Type="varchar" MaxLength="50" />
-          <Property Name="Species" Type="varchar" MaxLength="50" />
-          <Property Name="SubSpecies" Type="nchar" MaxLength="10" />
+          <Property Name="Type" Type="nvarchar" MaxLength="250" />
+          <Property Name="Genus" Type="nvarchar" MaxLength="250" />
+          <Property Name="Species" Type="varchar" MaxLength="250" />
+          <Property Name="SubSpecies" Type="nvarchar" MaxLength="250" />
           <Property Name="CustomValueOneID" Type="uniqueidentifier" />
           <Property Name="CustomValueTwoD" Type="uniqueidentifier" />
           <Property Name="CustomValueThreeID" Type="uniqueidentifier" />
@@ -239,10 +208,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues1">
-          <End Role="CustomValues1" Type="Self.CustomValues1" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues1">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -251,10 +220,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues2">
-          <End Role="CustomValues2" Type="Self.CustomValues2" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues2">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -263,10 +232,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues3">
-          <End Role="CustomValues3" Type="Self.CustomValues3" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues3">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -275,10 +244,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues4">
-          <End Role="CustomValues4" Type="Self.CustomValues4" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues4">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -287,10 +256,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues5">
-          <End Role="CustomValues5" Type="Self.CustomValues5" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues5">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -299,7 +268,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_PlantParentOne">
-          <End Role="Plant" Type="Self.Plant" Multiplicity="1" />
+          <End Role="Plant" Type="Self.Plant" Multiplicity="0..1" />
           <End Role="Plant1" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plant">
@@ -329,11 +298,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomValues1" EntityType="Self.CustomValues1" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomValues2" EntityType="Self.CustomValues2" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomValues3" EntityType="Self.CustomValues3" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomValues4" EntityType="Self.CustomValues4" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomValues5" EntityType="Self.CustomValues5" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomValues" EntityType="Self.CustomValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Journal" EntityType="Self.Journal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plant" EntityType="Self.Plant" Schema="dbo" store:Type="Tables" />
@@ -366,23 +331,23 @@
             <End Role="Journal" EntitySet="Journal" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues1" Association="Self.FK_Plant_CustomValues1">
-            <End Role="CustomValues1" EntitySet="CustomValues1" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues2" Association="Self.FK_Plant_CustomValues2">
-            <End Role="CustomValues2" EntitySet="CustomValues2" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues3" Association="Self.FK_Plant_CustomValues3">
-            <End Role="CustomValues3" EntitySet="CustomValues3" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues4" Association="Self.FK_Plant_CustomValues4">
-            <End Role="CustomValues4" EntitySet="CustomValues4" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues5" Association="Self.FK_Plant_CustomValues5">
-            <End Role="CustomValues5" EntitySet="CustomValues5" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_PlantParentOne" Association="Self.FK_Plant_PlantParentOne">
@@ -458,50 +423,18 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="CustomValues1">
+        <EntityType Name="CustomValues">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Plant" Relationship="Self.FK_Plant_CustomValues1" FromRole="CustomValues1" ToRole="Plant" />
-        </EntityType>
-        <EntityType Name="CustomValues2">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Plant" Relationship="Self.FK_Plant_CustomValues2" FromRole="CustomValues2" ToRole="Plant" />
-        </EntityType>
-        <EntityType Name="CustomValues3">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Plant" Relationship="Self.FK_Plant_CustomValues3" FromRole="CustomValues3" ToRole="Plant" />
-        </EntityType>
-        <EntityType Name="CustomValues4">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Plant" Relationship="Self.FK_Plant_CustomValues4" FromRole="CustomValues4" ToRole="Plant" />
-        </EntityType>
-        <EntityType Name="CustomValues5">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Plant" Relationship="Self.FK_Plant_CustomValues5" FromRole="CustomValues5" ToRole="Plant" />
+          <NavigationProperty Name="Plant" Relationship="Self.FK_Plant_CustomValues1" FromRole="CustomValues" ToRole="Plant" />
+          <NavigationProperty Name="Plant1" Relationship="Self.FK_Plant_CustomValues2" FromRole="CustomValues" ToRole="Plant" />
+          <NavigationProperty Name="Plant2" Relationship="Self.FK_Plant_CustomValues3" FromRole="CustomValues" ToRole="Plant" />
+          <NavigationProperty Name="Plant3" Relationship="Self.FK_Plant_CustomValues4" FromRole="CustomValues" ToRole="Plant" />
+          <NavigationProperty Name="Plant4" Relationship="Self.FK_Plant_CustomValues5" FromRole="CustomValues" ToRole="Plant" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -510,7 +443,7 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="PlantID" Type="Guid" />
           <Property Name="JournalID" Type="Guid" />
-          <Property Name="ImageFilePath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImageFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Journal" Relationship="Self.FK_Images_Journal" FromRole="Images" ToRole="Journal" />
           <NavigationProperty Name="Plant" Relationship="Self.FK_Images_Plant" FromRole="Images" ToRole="Plant" />
         </EntityType>
@@ -520,9 +453,10 @@
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
-          <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PlantID" Type="Guid" />
-          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Images_Journal" FromRole="Journal" ToRole="Images" />
           <NavigationProperty Name="Plant" Relationship="Self.FK_Journal_Plant" FromRole="Journal" ToRole="Plant" />
         </EntityType>
@@ -532,25 +466,25 @@
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ParentOneID" Type="Guid" Nullable="false" />
+          <Property Name="ParentOneID" Type="Guid" />
           <Property Name="ParentTwoID" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Genus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Species" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SubSpecies" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Genus" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Species" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="SubSpecies" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CustomValueOneID" Type="Guid" />
           <Property Name="CustomValueTwoD" Type="Guid" />
           <Property Name="CustomValueThreeID" Type="Guid" />
           <Property Name="CustomValueFourID" Type="Guid" />
           <Property Name="CustomValueFiveID" Type="Guid" />
           <Property Name="Notes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CustomValues1" Relationship="Self.FK_Plant_CustomValues1" FromRole="Plant" ToRole="CustomValues1" />
-          <NavigationProperty Name="CustomValues2" Relationship="Self.FK_Plant_CustomValues2" FromRole="Plant" ToRole="CustomValues2" />
-          <NavigationProperty Name="CustomValues3" Relationship="Self.FK_Plant_CustomValues3" FromRole="Plant" ToRole="CustomValues3" />
-          <NavigationProperty Name="CustomValues4" Relationship="Self.FK_Plant_CustomValues4" FromRole="Plant" ToRole="CustomValues4" />
-          <NavigationProperty Name="CustomValues5" Relationship="Self.FK_Plant_CustomValues5" FromRole="Plant" ToRole="CustomValues5" />
+          <NavigationProperty Name="CustomValues" Relationship="Self.FK_Plant_CustomValues1" FromRole="Plant" ToRole="CustomValues" />
+          <NavigationProperty Name="CustomValues1" Relationship="Self.FK_Plant_CustomValues2" FromRole="Plant" ToRole="CustomValues" />
+          <NavigationProperty Name="CustomValues2" Relationship="Self.FK_Plant_CustomValues3" FromRole="Plant" ToRole="CustomValues" />
+          <NavigationProperty Name="CustomValues3" Relationship="Self.FK_Plant_CustomValues4" FromRole="Plant" ToRole="CustomValues" />
+          <NavigationProperty Name="CustomValues4" Relationship="Self.FK_Plant_CustomValues5" FromRole="Plant" ToRole="CustomValues" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Images_Plant" FromRole="Plant" ToRole="Images" />
           <NavigationProperty Name="Journal" Relationship="Self.FK_Journal_Plant" FromRole="Plant" ToRole="Journal" />
           <NavigationProperty Name="Plant1" Relationship="Self.FK_Plant_PlantParentOne" FromRole="Plant" ToRole="Plant1" />
@@ -587,10 +521,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues1">
-          <End Role="CustomValues1" Type="Self.CustomValues1" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues1">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -599,10 +533,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues2">
-          <End Role="CustomValues2" Type="Self.CustomValues2" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues2">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -611,10 +545,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues3">
-          <End Role="CustomValues3" Type="Self.CustomValues3" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues3">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -623,10 +557,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues4">
-          <End Role="CustomValues4" Type="Self.CustomValues4" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues4">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -635,10 +569,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_CustomValues5">
-          <End Role="CustomValues5" Type="Self.CustomValues5" Multiplicity="0..1" />
+          <End Role="CustomValues" Type="Self.CustomValues" Multiplicity="0..1" />
           <End Role="Plant" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomValues5">
+            <Principal Role="CustomValues">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Plant">
@@ -683,7 +617,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plant_PlantParentOne">
-          <End Role="Plant" Type="Self.Plant" Multiplicity="1" />
+          <End Role="Plant" Type="Self.Plant" Multiplicity="0..1" />
           <End Role="Plant1" Type="Self.Plant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plant">
@@ -716,11 +650,7 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="CustomValues1" EntityType="Self.CustomValues1" />
-          <EntitySet Name="CustomValues2" EntityType="Self.CustomValues2" />
-          <EntitySet Name="CustomValues3" EntityType="Self.CustomValues3" />
-          <EntitySet Name="CustomValues4" EntityType="Self.CustomValues4" />
-          <EntitySet Name="CustomValues5" EntityType="Self.CustomValues5" />
+          <EntitySet Name="CustomValues" EntityType="Self.CustomValues" />
           <EntitySet Name="Images" EntityType="Self.Images" />
           <EntitySet Name="Journal" EntityType="Self.Journal" />
           <EntitySet Name="Plant" EntityType="Self.Plant" />
@@ -733,23 +663,23 @@
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues1" Association="Self.FK_Plant_CustomValues1">
-            <End Role="CustomValues1" EntitySet="CustomValues1" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues2" Association="Self.FK_Plant_CustomValues2">
-            <End Role="CustomValues2" EntitySet="CustomValues2" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues3" Association="Self.FK_Plant_CustomValues3">
-            <End Role="CustomValues3" EntitySet="CustomValues3" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues4" Association="Self.FK_Plant_CustomValues4">
-            <End Role="CustomValues4" EntitySet="CustomValues4" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Plant_CustomValues5" Association="Self.FK_Plant_CustomValues5">
-            <End Role="CustomValues5" EntitySet="CustomValues5" />
+            <End Role="CustomValues" EntitySet="CustomValues" />
             <End Role="Plant" EntitySet="Plant" />
           </AssociationSet>
           <AssociationSet Name="FK_Images_Journal" Association="Self.FK_Images_Journal">
@@ -838,45 +768,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CustomValues1">
-            <EntityTypeMapping TypeName="PlantTrackerDBModel.CustomValues1">
-              <MappingFragment StoreEntitySet="CustomValues1">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomValues2">
-            <EntityTypeMapping TypeName="PlantTrackerDBModel.CustomValues2">
-              <MappingFragment StoreEntitySet="CustomValues2">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomValues3">
-            <EntityTypeMapping TypeName="PlantTrackerDBModel.CustomValues3">
-              <MappingFragment StoreEntitySet="CustomValues3">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomValues4">
-            <EntityTypeMapping TypeName="PlantTrackerDBModel.CustomValues4">
-              <MappingFragment StoreEntitySet="CustomValues4">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomValues5">
-            <EntityTypeMapping TypeName="PlantTrackerDBModel.CustomValues5">
-              <MappingFragment StoreEntitySet="CustomValues5">
+          <EntitySetMapping Name="CustomValues">
+            <EntityTypeMapping TypeName="PlantTrackerDBModel.CustomValues">
+              <MappingFragment StoreEntitySet="CustomValues">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
@@ -898,6 +792,7 @@
               <MappingFragment StoreEntitySet="Journal">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="PlantID" ColumnName="PlantID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

@@ -62,19 +62,7 @@
     <Compile Include="EDMX\AspNetUsers.cs">
       <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDMX\CustomValues1.cs">
-      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EDMX\CustomValues2.cs">
-      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EDMX\CustomValues3.cs">
-      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EDMX\CustomValues4.cs">
-      <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EDMX\CustomValues5.cs">
+    <Compile Include="EDMX\CustomValues.cs">
       <DependentUpon>PlantTrackerDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EDMX\C__MigrationHistory.cs">

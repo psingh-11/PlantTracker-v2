@@ -30,12 +30,18 @@ namespace PlantTracker
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 "~/Scripts/dataTable.min.js",
                 "~/app/Plant_table/js/plant_table.js",
+                 "~/app/Plant_table/js/plant_table_service.js",
                 "~/app/common/js/toolbox.js"
 
                 ));
 
             bundles.Add(new StyleBundle("~/Plant_Details/css").Include(
-                "~/App/Plant_Details/css/plant_details.css"));
+                "~/App/Plant_Details/css/plant_detail.css"));
+
+            bundles.Add(new StyleBundle("~/Plant_Details/js").Include(
+                    "~/App/Plant_Details/js/plant_detail.js",
+                    "~/App/Plant_Details/js/plant_Detail_service.js"
+                    ));
 
 
 

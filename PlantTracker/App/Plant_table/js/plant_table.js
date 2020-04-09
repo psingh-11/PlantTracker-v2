@@ -49,16 +49,9 @@
 
     $('#plantTable tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
-        Details(data);
-        //homeService.GetDetails(data.EmpId).done(function (result) {
-        //    var k = result;
-        //   Details(result.data);
+        document.location.href = "/plant/plantdetails?plantid=" + data.PlantId;
+        //plantTableService.GetDetails(data.PlantId);
 
-        //}).fail(function (result) {
-
-        //}).always(function (result) {
-
-        //});
     });
 
     $(".open-AddBookDialog").click(function () {
@@ -66,21 +59,6 @@
         $("#addBookDialog").modal("show");
     });
 
-    var Details = function (data) {
-
-        /*
-        $("#detail_img").attr("src", "data:image/png;base64," + data.Image);
-        $('#detail_id').html(data.EmpId);
-        $('#detail_name').html(data.EmpName);
-        $('#detail_department').html(data.Department);
-        $('#detail_email').html(data.Email);
-        $('#detail_workno').html(data.WorkNo);
-        $('#detail_cellno').html(data.CellNo);
-        $('#detail_HomeNo').html(data.HomeNo);
-
-        $('#details').modal('show'); 
-        */
-    }
 
 
 
