@@ -18,7 +18,7 @@ namespace PlantTracker.Controllers
         public ActionResult NewPlant()
         {
             var plantDto = new PlantDto();
-            List<Plant> plantList = new List<Plant>();
+            List<PlantDAL.EDMX.Plant> plantList = new List<PlantDAL.EDMX.Plant>();
 
             plantList = PlantCRUD.GetByUserID(User.Identity.GetUserId());
             foreach(var plant in plantList)
@@ -42,7 +42,7 @@ namespace PlantTracker.Controllers
 
             var plantDir = Server.MapPath("~/Images/Plant/" + id.ToString());
             List<Images> imgList = Mappers.ImageMapper.MapHTTPToImage(plantDto.Images, plantDto, plantDir);
-            Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
+            PlantDAL.EDMX.Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
 
             if (plantDto.CustomValues1 != null)
             {
@@ -90,11 +90,11 @@ namespace PlantTracker.Controllers
         [HttpGet]
         public ActionResult PlantDetails(string plantId)
         {
-            Plant plant = PlantCRUD.GetByID(Guid.Parse(plantId));
+            PlantDAL.EDMX.Plant plant = PlantCRUD.GetByID(Guid.Parse(plantId));
             PlantDto dto = Mappers.PlantMapper.MapDALToDto(plant);
 
             List<Images> imgs = ImageCRUD.GetByPlantID(Guid.Parse(plantId));
- 
+            
             foreach(var img in imgs)
             {
                 var idx = img.ImageFilePath.ToLower().IndexOf(@"\images\");
@@ -104,7 +104,34 @@ namespace PlantTracker.Controllers
                     dto.imageFilePath.Add(imgpath);
                 }
             }
-               
+
+            if(plant.CustomValueOneID != null || plant.CustomValueOneID == Guid.Empty)
+            {
+                plant.CustomValues = CustomValueCRUD.GetByID(plant.CustomValueOneID);
+                dto.CustomValues1 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 1) as CustomValueDto;
+            }
+            if (plant.CustomValueTwoD != null || plant.CustomValueOneID == Guid.Empty)
+            {
+                plant.CustomValues1 = CustomValueCRUD.GetByID(plant.CustomValueTwoD);
+                dto.CustomValues2= Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 2) as CustomValueDto;
+            }
+            if (plant.CustomValueThreeID != null || plant.CustomValueThreeID == Guid.Empty)
+            {
+                plant.CustomValues2 = CustomValueCRUD.GetByID(plant.CustomValueThreeID);
+                dto.CustomValues3 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 3) as CustomValueDto;
+            }
+            if (plant.CustomValueFourID != null || plant.CustomValueFourID == Guid.Empty)
+            {
+                plant.CustomValues3 = CustomValueCRUD.GetByID(plant.CustomValueFourID);
+                dto.CustomValues4 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 4) as CustomValueDto;
+            }
+            if (plant.CustomValueFiveID != null || plant.CustomValueFiveID == Guid.Empty)
+            {
+                plant.CustomValues4 = CustomValueCRUD.GetByID(plant.CustomValueFiveID);
+                dto.CustomValues5 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 5) as CustomValueDto;
+            }
+
+
             return View(dto);
         }
 
@@ -115,7 +142,7 @@ namespace PlantTracker.Controllers
         {
             var plantDir = Server.MapPath("~/Images/Plant/" + plantDto.ID.ToString());
             List<Images> imgList = Mappers.ImageMapper.MapHTTPToImage(plantDto.Images, plantDto, plantDir);
-            Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
+            PlantDAL.EDMX.Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
 
             if (plantDto.CustomValues1 != null)
             {

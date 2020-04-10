@@ -89,11 +89,18 @@ namespace PlantDAL.Repository
                     var sch = srch.Trim();
                     query += " AND ( ";
 
-                    query += "Name Like " + sch + "%  OR ";
-                    query += "Type Like " + sch + "%  OR ";
-                    query += "Genus Like " + sch + "%  OR ";
-                    query += "Species Like " + sch + "%  OR ";
-                    query += "SubSpecies Like " + sch + "% ) ";
+                    if (IsOperator(sch))
+                    {
+                        query += "[Count] " + sch + " ) ";
+                    }
+                    else
+                    {
+                        query += "[Name] Like '%" + sch + "%'  OR ";
+                        query += "[Type] Like '%" + sch + "%' OR ";
+                        query += "[Genus] Like '%" + sch + "%'  OR ";
+                        query += "[Species] Like '%" + sch + "%'  OR ";
+                        query += "[SubSpecies] Like '%" + sch + "%' ) ";
+                    }
 
                 }
 
@@ -111,6 +118,46 @@ namespace PlantDAL.Repository
             }
 
             return plants;
+        }
+
+
+
+
+        static bool IsOperator(string query)
+        {
+            if (query.IndexOf("<=") != -1)
+            {
+                if (query.Length == 2)
+                    return false;
+                return true;
+            }
+            else if (query.IndexOf(">=") != -1)
+            {
+                if (query.Length == 2)
+                    return false;
+                return true;
+            }
+            else if (query.IndexOf(">") != -1)
+            {
+                if (query.Length == 1)
+                    return false;
+                return true;
+            }
+            else if (query.IndexOf("<") != -1)
+            {
+                if (query.Length == 1)
+                    return false;
+                return true;
+            }
+            else if (query.IndexOf("=") != -1)
+            {
+                if (query.Length == 1)
+                    return false;
+                return true;
+            }
+
+            else
+                return false;
 
         }
 

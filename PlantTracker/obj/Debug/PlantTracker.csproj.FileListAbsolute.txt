@@ -331,3 +331,6 @@ C:\Users\josh\Source\Repos\psingh-11\PlantTracker\PlantTracker\obj\Debug\PlantTr
 C:\Users\josh\Source\Repos\psingh-11\PlantTracker\PlantTracker\obj\Debug\PlantTracker.csproj.CopyComplete
 C:\Users\josh\Source\Repos\psingh-11\PlantTracker\PlantTracker\obj\Debug\PlantTracker.dll
 C:\Users\josh\Source\Repos\psingh-11\PlantTracker\PlantTracker\obj\Debug\PlantTracker.pdb
+C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\AutoMapper.dll
+C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\AutoMapper.pdb
+C:\Users\Praveen\Desktop\Stockton Programming Assignments\PlantTracker\PlantTracker\bin\AutoMapper.xml

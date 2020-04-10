@@ -93,11 +93,7 @@
       <DependentUpon>PlantTrackerDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CustomValueFiveCRUD.cs" />
-    <Compile Include="Repository\CustomValueFourCRUD.cs" />
-    <Compile Include="Repository\CustomValueOneCRUD.cs" />
-    <Compile Include="Repository\CustomValueThree.cs" />
-    <Compile Include="Repository\CustomValueTwoCRUD.cs" />
+    <Compile Include="Repository\CustomValueCRUD.cs" />
     <Compile Include="Repository\ImageCRUD.cs" />
     <Compile Include="Repository\JournalCRUD.cs" />
     <Compile Include="Repository\PlantCRUD.cs" />

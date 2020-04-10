@@ -1,0 +1,196 @@
+﻿@model  PlantTracker.Models.Dto.PlantDto
+@{
+    ViewBag.Title = "PlantDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Plant_Details/css");
+
+<h2>Plant View</h2>
+<hr />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="PlantTable">Plant Table</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Plant Profile</li>
+    </ol>
+</nav>
+<hr />
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">"Plant Name"</h1>
+    </div>
+</div>
+@using (Html.BeginForm("PlantDetails", "Plant", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="container">
+        <br>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                @{
+                    var Counter = 0;
+                }
+
+                @foreach (var m in Model.Images)
+                {
+                    if (Counter == 0)
+                    {
+                        <li data-target="#myCarousel" data-slide-to=@Counter class="active"></li>
+                    }
+                    else
+                    {
+                        <li data-target="#myCarousel" data-slide-to=@Counter></li>
+                    }
+                    Counter++;
+                }
+
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                @{
+                    var CounterImg = 0;
+                }
+                @foreach (var m in Model.imageFilePath)
+                {
+                    if (CounterImg == 0)
+                    {
+                        <div class="item active" style="background-image: url(@m)"></div>
+
+                    }
+                    else
+                    {
+                        <div class="item " style="background-image: url(@m)"></div>
+                    }
+                    CounterImg++;
+                }
+            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+
+    <br />
+    <hr />
+    <br />
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="PlantDetailsInfo">
+            <div class="Name">
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Type">
+                @Html.TextBoxFor(m => m.Type, new { placeholder = "Type", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Genus">
+                @Html.TextBoxFor(m => m.Genus, new { placeholder = "Genus", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Species">
+                @Html.TextBoxFor(m => m.Species, new { placeholder = "Species", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Subspecies">
+                @Html.TextBoxFor(m => m.SubSpecies, new { placeholder = "Sub-Species", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Count">
+                @Html.TextBoxFor(m => m.Count, new { placeholder = "Count", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Notes">
+                @Html.TextAreaFor(m => m.Notes, new { placeholder = "Notes", @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Parent 1">
+                @Html.Label("Parent One")
+                <br />
+                @Html.DropDownListFor(m => m.ParentOneID, Model.Plants, "--None--", new { @class = "form-control", @readonly = true })
+            </div>
+            <br />
+            <div class="Parent 2">
+                @Html.Label("Parent Two")
+                <br />
+                @Html.DropDownListFor(m => m.ParentTwoID, Model.Plants, "--None--", new { @class = "form-control", @readonly = true })
+            </div>
+            <hr />
+        </div>
+        <div class="UpdatePlant">
+            @Html.ActionLink("Edit Plant", "PlantDetails", "Plant", new { PlantID = Model.ID.ToString() }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="Custom_Value_Plant_Info">
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues1.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue1">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues1.Notes, new { placeholder = "Custom Value 1", @class = "form-control", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues2.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue2">
+                        <div class="card card-body" style="border:thin">
+                            @Html.TextAreaFor(m => m.CustomValues2.Notes, new { placeholder = "Custom Value 2", @class = "form-control", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues3.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue3">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues3.Notes, new { placeholder = "Custom Value 3", @class = "form-control", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues4.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue4">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues4.Notes, new { placeholder = "Custom Value 4", @class = "form-control", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
+                @Html.TextBoxFor(m => m.CustomValues5.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CustomValue5">
+                        <div class="card card-body">
+                            @Html.TextAreaFor(m => m.CustomValues5.Notes, new { placeholder = "Custom Value 5", @class = "form-control", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </p>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/Plant_Details/js")

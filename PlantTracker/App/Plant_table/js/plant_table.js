@@ -49,7 +49,7 @@
 
     $('#plantTable tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
-        document.location.href = "/plant/plantdetails?plantid=" + data.PlantId;
+        document.location.href = "/plantview/PlantDisplay?plantid=" + data.PlantId;
         //plantTableService.GetDetails(data.PlantId);
 
     });
