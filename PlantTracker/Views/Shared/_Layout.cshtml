@@ -11,6 +11,9 @@
 
 </head>
 <body>
+
+    @if (ViewBag.logOff == null)
+    {
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -31,6 +34,7 @@
             </div>
         </div>
     </div>
+    }
     <div class="container body-content" >
         @RenderBody()
         <hr />

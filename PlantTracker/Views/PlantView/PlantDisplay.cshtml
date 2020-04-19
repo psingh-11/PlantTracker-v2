@@ -2,22 +2,30 @@
 @{
     ViewBag.Title = "PlantDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!User.Identity.IsAuthenticated)
+    {
+        ViewBag.logOff = true;
+    }
 }
 
 @Styles.Render("~/Plant_Details/css");
 
-<h2>Plant View</h2>
 <hr />
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="PlantTable">Plant Table</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Plant Profile</li>
-    </ol>
-</nav>
+
+@if (User.Identity.IsAuthenticated == true)
+{
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Plant/PlantTable">Plant Table</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Plant Profile</li>
+        </ol>
+    </nav>
+}
+
 <hr />
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">"Plant Name"</h1>
+        <h1 class="display-4">Plant Profile</h1>
     </div>
 </div>
 @using (Html.BeginForm("PlantDetails", "Plant", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
@@ -44,27 +52,31 @@
                     Counter++;
                 }
 
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
+                @*<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>*@
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 @{
                     var CounterImg = 0;
                 }
-                @foreach (var m in Model.imageFilePath)
+                @if (Model.imageFilePath != null)
                 {
-                    if (CounterImg == 0)
+                    foreach (var m in Model.imageFilePath)
                     {
-                        <div class="item active" style="background-image: url(@m)"></div>
+                        if (CounterImg == 0)
+                        {
+                            <div class="item active" style="background-image: url(@m)"></div>
 
+                        }
+                        else
+                        {
+                            <div class="item " style="background-image: url(@m)"></div>
+                        }
+                        CounterImg++;
                     }
-                    else
-                    {
-                        <div class="item " style="background-image: url(@m)"></div>
-                    }
-                    CounterImg++;
                 }
+
             </div>
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -115,18 +127,32 @@
             <div class="Parent 1">
                 @Html.Label("Parent One")
                 <br />
-                @Html.DropDownListFor(m => m.ParentOneID, Model.Plants, "--None--", new { @class = "form-control", @readonly = true })
+                @if (User.Identity.IsAuthenticated == true)
+                {
+                    @Html.DropDownListFor(m => m.ParentOneID, Model.Plants.Select(x => new SelectListItem { Text = x.Text, Value = x.Value, Selected = x.Value.Equals(Model.ParentOneID) }), "--None--", new { @class = "form-control", @readonly = true })
+                }
+                else
+                {
+                    var plantParent = PlantDAL.Repository.PlantCRUD.GetByID(Guid.Parse(Model.ParentOneID));
+                    @Html.TextBox("Parent One", plantParent.Name, new { placeholder = "Parent one", @class = "form-control", @readonly = true })
+                }
+
             </div>
             <br />
             <div class="Parent 2">
                 @Html.Label("Parent Two")
                 <br />
-                @Html.DropDownListFor(m => m.ParentTwoID, Model.Plants, "--None--", new { @class = "form-control", @readonly = true })
+                @if (User.Identity.IsAuthenticated == true)
+                {
+                    @Html.DropDownListFor(m => m.ParentTwoID, Model.Plants.Select(x => new SelectListItem { Text = x.Text, Value = x.Value, Selected = x.Value.Equals(Model.ParentTwoID) }), "--None--", new { @class = "form-control", @readonly = true });
+                }
+                else
+                {
+                    var plantParent = PlantDAL.Repository.PlantCRUD.GetByID(Guid.Parse(Model.ParentTwoID));
+                    @Html.TextBox("Parent Two", plantParent.Name,  new { placeholder = "Parent one", @class = "form-control", @readonly = true })
+                }
             </div>
             <hr />
-        </div>
-        <div class="UpdatePlant">
-            @Html.ActionLink("Edit Plant", "PlantDetails", "Plant", new { PlantID = Model.ID.ToString() }, new { @class = "btn btn-success" })
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -190,6 +216,14 @@
                 <br />
             </p>
         </div>
+    </div>
+    <div class="UpdatePlant">
+
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            @Html.ActionLink("Edit Plant", "PlantDetails", "Plant", new { PlantID = Model.ID.ToString() }, new { @class = "btn btn-success" });
+        }
+
     </div>
 }
 

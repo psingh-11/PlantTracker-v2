@@ -33,14 +33,36 @@ namespace PlantDAL.Repository
             }
         }
 
-        public static void Delete()
+        public static void Delete(Images img)
         {
             using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
             {
-
+                ctx.Images.Attach(img);
+                ctx.Images.Remove(img);
+                ctx.Entry(img).State = System.Data.Entity.EntityState.Deleted;
+                ctx.SaveChanges();
             }
         }
 
+        public static Images GetByFilePathAndPlantId(string plantId, string filePath)
+        {
+            Images img = new Images();
+            Guid pId = Guid.Parse(plantId);
+
+            try
+            {
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    img = ctx.Images.FirstOrDefault(x => x.PlantID == pId && x.ImageFilePath == filePath);
+                }
+            }
+            catch(Exception ex)
+            {
+                string message = ex.Message;
+            }
+
+            return img;
+        }
 
         public static Images GetByID(Guid imgID)
         {

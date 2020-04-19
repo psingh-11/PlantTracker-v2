@@ -46,13 +46,7 @@ namespace PlantTracker.Mappers
             dto.ParentOneID = plant.ParentOneID.ToString();
             dto.ParentTwoID = plant.ParentTwoID.ToString();
 
-            //foreach(var img in plant.Images)
-            //{
-            //    dto.imageFilePath.Add(img.ImageFilePath);
-            //}
-
             return dto;
-            ;
         }
     }
 }

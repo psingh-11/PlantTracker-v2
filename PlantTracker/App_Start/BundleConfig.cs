@@ -39,6 +39,7 @@ namespace PlantTracker
                 "~/App/Plant_Details/css/plant_detail.css"));
 
             bundles.Add(new StyleBundle("~/Plant_Details/js").Include(
+                   "~/app/common/js/toolbox.js",
                     "~/App/Plant_Details/js/plant_detail.js",
                     "~/App/Plant_Details/js/plant_Detail_service.js"
                     ));

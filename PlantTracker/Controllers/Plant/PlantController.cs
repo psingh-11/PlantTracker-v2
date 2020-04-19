@@ -8,6 +8,8 @@ using PlantDAL.Repository;
 using PlantDAL.EDMX;
 using PlantTracker.Models.Dto;
 using System.IO;
+using System.Configuration;
+
 
 namespace PlantTracker.Controllers
 {
@@ -77,7 +79,6 @@ namespace PlantTracker.Controllers
 
             PlantCRUD.Insert(plant);
 
-
             return RedirectToAction("PlantTable");
         }
 
@@ -89,18 +90,34 @@ namespace PlantTracker.Controllers
 
         [HttpGet]
         public ActionResult PlantDetails(string plantId)
-        {
+       {
             PlantDAL.EDMX.Plant plant = PlantCRUD.GetByID(Guid.Parse(plantId));
             PlantDto dto = Mappers.PlantMapper.MapDALToDto(plant);
 
+            List<PlantDAL.EDMX.Plant> plantList = new List<PlantDAL.EDMX.Plant>();
+
+            plantList = PlantCRUD.GetByUserID(User.Identity.GetUserId());
+            foreach (var plt in plantList)
+            {
+                dto.Plants.Add(new SelectListItem
+                {
+                    Text = plt.Name,
+                    Value = plt.ID.ToString()
+                });
+            }
+
             List<Images> imgs = ImageCRUD.GetByPlantID(Guid.Parse(plantId));
             
-            foreach(var img in imgs)
+            var curUrl = ConfigurationManager.AppSettings["url"];
+            curUrl = curUrl.TrimEnd('/');
+            foreach (var img in imgs)
             {
                 var idx = img.ImageFilePath.ToLower().IndexOf(@"\images\");
                 if(idx != -1)
                 {
-                    var imgpath = "http://localhost:49592" + img.ImageFilePath.Substring(idx).Replace("\\", "/");
+                    if (dto.imageFilePath == null)
+                        dto.imageFilePath = new List<string>();
+                    var imgpath = curUrl + img.ImageFilePath.Substring(idx).Replace("\\", "/");
                     dto.imageFilePath.Add(imgpath);
                 }
             }
@@ -113,70 +130,103 @@ namespace PlantTracker.Controllers
             if (plant.CustomValueTwoD != null || plant.CustomValueOneID == Guid.Empty)
             {
                 plant.CustomValues1 = CustomValueCRUD.GetByID(plant.CustomValueTwoD);
-                dto.CustomValues2= Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 2) as CustomValueDto;
+                dto.CustomValues2= Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues1, 2) as CustomValueDto;
             }
             if (plant.CustomValueThreeID != null || plant.CustomValueThreeID == Guid.Empty)
             {
                 plant.CustomValues2 = CustomValueCRUD.GetByID(plant.CustomValueThreeID);
-                dto.CustomValues3 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 3) as CustomValueDto;
+                dto.CustomValues3 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues2, 3) as CustomValueDto;
             }
             if (plant.CustomValueFourID != null || plant.CustomValueFourID == Guid.Empty)
             {
                 plant.CustomValues3 = CustomValueCRUD.GetByID(plant.CustomValueFourID);
-                dto.CustomValues4 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 4) as CustomValueDto;
+                dto.CustomValues4 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues3, 4) as CustomValueDto;
             }
             if (plant.CustomValueFiveID != null || plant.CustomValueFiveID == Guid.Empty)
             {
                 plant.CustomValues4 = CustomValueCRUD.GetByID(plant.CustomValueFiveID);
-                dto.CustomValues5 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues, 5) as CustomValueDto;
+                dto.CustomValues5 = Mappers.CustomValueMapper.MapDALToDto(plant.CustomValues4, 5) as CustomValueDto;
             }
-
 
             return View(dto);
         }
 
+        [HttpPost]
+        public ActionResult DeleteImage(string PlantId, string FilePath)
+        {
+            var curUrl = ConfigurationManager.AppSettings["url"].TrimEnd('/');
+            var pathDelete = FilePath.Replace(curUrl, "").Replace("/", "\\");
+            try
+            {
+                var serverDir = Server.MapPath("/").TrimEnd('\\');
+                var fileDel = serverDir +  pathDelete;
+                System.IO.File.Delete(fileDel);
 
+                Images img = ImageCRUD.GetByFilePathAndPlantId(PlantId, fileDel);
+                ImageCRUD.Delete(img);
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            return Json(new { IsError = false, message = "success", data = true }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult PlantDetails(PlantDto plantDto)
         {
             var plantDir = Server.MapPath("~/Images/Plant/" + plantDto.ID.ToString());
             List<Images> imgList = Mappers.ImageMapper.MapHTTPToImage(plantDto.Images, plantDto, plantDir);
+
+            foreach(var img in imgList)
+            {
+                ImageCRUD.Insert(img);
+            }
+
+
+            //List<Images> pltImgList = ImageCRUD.GetByPlantID(plantDto.ID);
+            //foreach(var img in pltImgList)
+            //{
+            //    imgList.Add(img);
+            //}
+
+
             PlantDAL.EDMX.Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
+            plant.UserID = User.Identity.GetUserId();
 
             if (plantDto.CustomValues1 != null)
             {
-                plantDto.CustomValues1.ID = Guid.NewGuid();
                 CustomValues cv1 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues1, 1) as CustomValues;
                 plant.CustomValues = cv1;
+                plant.CustomValueOneID = cv1.ID;
             }
             if (plantDto.CustomValues2 != null)
             {
-                plantDto.CustomValues2.ID = Guid.NewGuid();
                 CustomValues cv2 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues2, 2) as CustomValues;
                 plant.CustomValues1 = cv2;
+                plant.CustomValueTwoD = cv2.ID;
             }
             if (plantDto.CustomValues3 != null)
             {
-                plantDto.CustomValues3.ID = Guid.NewGuid();
                 CustomValues cv3 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues3, 3) as CustomValues;
                 plant.CustomValues2 = cv3;
+                plant.CustomValueThreeID = cv3.ID;
             }
             if (plantDto.CustomValues4 != null)
             {
-                plantDto.CustomValues4.ID = Guid.NewGuid();
                 CustomValues cv4 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues4, 4) as CustomValues;
                 plant.CustomValues3 = cv4;
+                plant.CustomValueFourID = cv4.ID;
             }
             if (plantDto.CustomValues5 != null)
             {
-                plantDto.CustomValues5.ID = Guid.NewGuid();
                 CustomValues cv5 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues5, 5) as CustomValues;
                 plant.CustomValues4 = cv5;
+                plant.CustomValueFiveID = cv5.ID;
             }
 
             PlantCRUD.Update(plant);
-
 
             return RedirectToAction("PlantTable");
         }

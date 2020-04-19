@@ -1,43 +1,20 @@
 ﻿(function () {
 
-    var homeService = {
+    var plantDetailService = {
 
-        GetDetails: function (empId) {
+        DeleteImage: function (plantId, filePath) {
 
             var errorMsg = "Missing a parameter!";
-            if (empId == null) { throw errorMsg; return; }
+            if (plantId == null || filePath == null) { throw errorMsg; return; }
 
             var pack = {
-                "EmpId": empId
+                "PlantId": plantId,
+                "FilePath": filePath
             };
             var r = toolbox.CreateAjaxResponse();
             $.ajax({
                 type: "POST",
-                url: toolbox.GetLocationUrl() + "/Home/GetDetails",
-                dataType: "json",
-                data: JSON.stringify(pack),
-                contentType: 'application/json; charset=utf-8',
-                processData: false,
-                cache: false
-            }).done(function (result) {
-                r._JsonResultHelper(result);
-            });
-
-            return r;
-        },
-
-        SetDetails: function (empId) {
-
-            var errorMsg = "Missing a parameter!";
-            if (empId == null) { throw errorMsg; return; }
-
-            var pack = {
-                "EmpId": empId
-            };
-            var r = toolbox.CreateAjaxResponse();
-            $.ajax({
-                type: "POST",
-                url: toolbox.GetLocationUrl() + "/Home/GetDetails",
+                url: toolbox.GetLocationUrl() + "/Plant/DeleteImage",
                 dataType: "json",
                 data: JSON.stringify(pack),
                 contentType: 'application/json; charset=utf-8',
@@ -53,6 +30,6 @@
 
 
     //We create a shortcut for our framework, we can call the methods by clientProjectInfoBL.method();
-    if(!window.homeService) { window.homeService = homeService; }
+    if (!window.plantDetailService) { window.plantDetailService = plantDetailService; }
 
 })();

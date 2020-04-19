@@ -17,22 +17,36 @@
 <hr />
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">"Plant Name"</h1>
+        <h1 class="display-4">Plant Profile</h1>
     </div>
 </div>
-@using (Html.BeginForm("PlantDetails", "Plant", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("PlantDetails", "Plant", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
 {
+<div>
+    @Html.HiddenFor(model => model.ID)
 
+    @if (Model.imageFilePath != null)
+    {
+        for (int i = 0; i < Model.imageFilePath.Count; i++)
+        {
+
+            @Html.HiddenFor(model => model.imageFilePath[i])
+        }
+    }
+
+
+</div>
     <div class="container">
         <br>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                    @{
-                        var Counter = 0;
-                    }
-
-                    @foreach (var m in Model.Images)
+                @{
+                    var Counter = 0;
+                }
+                @if (Model.Images != null || Model.Images.Count > 0)
+                {
+                    foreach (var m in Model.Images)
                     {
                         if (Counter == 0)
                         {
@@ -40,33 +54,38 @@
                         }
                         else
                         {
-                            <li data-target="#myCarousel" data-slide-to=@Counter ></li>
+                            <li data-target="#myCarousel" data-slide-to=@Counter></li>
                         }
                         Counter++;
                     }
+                }
 
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
+
+                @*<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>*@
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 @{
                     var CounterImg = 0;
                 }
-                @foreach (var m in Model.imageFilePath)
+                @if (Model.imageFilePath != null)
                 {
-                    if (CounterImg == 0)
+                    foreach (var m in Model.imageFilePath)
                     {
-                        <div class="item active" style="background-image: url(@m)"></div>
+                        if (CounterImg == 0)
+                        {
+                            <div class="item active" style="background-image: url(@m)"></div>
 
+                        }
+                        else
+                        {
+                            <div class="item " style="background-image: url(@m)"></div>
+                        }
+                        CounterImg++;
                     }
-                    else
-                    {
-                        <div class="item " style="background-image: url(@m)"></div>
-                    }
-                    CounterImg++;
                 }
-            </div>
+                </div>
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -76,6 +95,16 @@
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <div>
+            @Html.TextBoxFor(Model => Model.Images, "", new { @type = "file", @multiple = "multiple" })
+            @Html.ValidationMessageFor(Model => Model.Images, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <button type="button" onclick="deleteImage()">Delete Images</button>
         </div>
     </div>
 
@@ -116,23 +145,21 @@
             <div class="Parent 1">
                 @Html.Label("Parent One")
                 <br />
-                @Html.DropDownListFor(m => m.ParentOneID, Model.Plants, "--None--", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.ParentOneID, Model.Plants.Select(x => new SelectListItem { Text = x.Text, Value = x.Value, Selected = x.Value.Equals(Model.ParentOneID) }), "--None--", new { @class = "form-control" })
             </div>
             <br />
             <div class="Parent 2">
                 @Html.Label("Parent Two")
                 <br />
-                @Html.DropDownListFor(m => m.ParentTwoID, Model.Plants, "--None--", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.ParentTwoID, Model.Plants.Select(x => new SelectListItem { Text = x.Text, Value = x.Value, Selected = x.Value.Equals(Model.ParentTwoID) }), "--None--", new { @class = "form-control" })
             </div>
             <hr />
-        </div>
-        <div class="UpdatePlant">
-            <input type="submit" value="Update" class="btn btn-default" />
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="Custom_Value_Plant_Info">
             <p>
+                @Html.HiddenFor(model => model.CustomValues1.ID)
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues1.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
@@ -144,6 +171,7 @@
                 </div>
                 <br />
 
+                @Html.HiddenFor(model => model.CustomValues2.ID)
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues2.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
@@ -155,6 +183,7 @@
                 </div>
                 <br />
 
+                @Html.HiddenFor(model => model.CustomValues3.ID)
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues3.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
@@ -166,7 +195,7 @@
                 </div>
                 <br />
 
-
+                @Html.HiddenFor(model => model.CustomValues4.ID)
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues4.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
@@ -178,7 +207,7 @@
                 </div>
                 <br />
 
-
+                @Html.HiddenFor(model => model.CustomValues5.ID)
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues5.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
@@ -191,6 +220,9 @@
                 <br />
             </p>
         </div>
+    </div>
+    <div class="UpdatePlant">
+        <input type="submit" value="Update" class="btn btn-default" />
     </div>
 }
 

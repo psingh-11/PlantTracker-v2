@@ -38,9 +38,18 @@ namespace PlantDAL.Repository
 
         public static void Update(Plant plant)
         {
-            using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+            try
             {
-
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    ctx.Plant.Attach(plant);
+                    ctx.Entry(plant).State = System.Data.Entity.EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
             }
         }
 

@@ -31,7 +31,7 @@ namespace PlantTracker.Models.Dto
         }
 
         public List<HttpPostedFileBase> Images { get; set; }
-        public List<string> imageFilePath { get; set; } = new List<string>();
+        public List<string> imageFilePath { get; set; }
 
         public CustomValueDto CustomValues1 { get; set; }
         public CustomValueDto CustomValues2 { get; set; }

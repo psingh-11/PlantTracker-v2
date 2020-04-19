@@ -14,8 +14,7 @@ namespace PlantTracker.Mappers
             var cv = new CustomValues();
 
             if(i == 1)
-            {
-                
+            {   
                 cv.ID = customValue.ID;
                 cv.Name = customValue.Name;
                 cv.Notes = customValue.Notes;
