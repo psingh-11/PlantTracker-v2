@@ -233,8 +233,8 @@
         <hr />
         @if (User.Identity.IsAuthenticated == true)
         {
-            @Html.ActionLink("Edit Journal", "JournalDetails", "Journal", new { JournalID = Model.ID.ToString() }, new { @class = "btn btn-primary" });
             <a class="btn btn-primary" href="~/Journal/JournalTable" role="button">Back</a>
+            @Html.ActionLink("Edit Journal", "JournalDetails", "Journal", new { JournalID = Model.ID.ToString() }, new { @class = "btn btn-primary" });
         }
     </div>
 

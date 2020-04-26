@@ -20,6 +20,25 @@ namespace PlantDAL.Repository
 
         };
 
+        public static List<Plant> GetByParentId(Guid parentId)
+        {
+            List<Plant> childPlants = new List<Plant>();
+
+            try
+            {
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    childPlants = ctx.Plant.Where(x => x.ParentOneID == parentId || x.ParentTwoID == parentId).ToList();
+                }
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
+            }
+
+            return childPlants;
+        }
+
         public static void Insert(Plant plant)
         {
             try

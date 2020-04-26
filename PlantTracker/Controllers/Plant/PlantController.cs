@@ -135,6 +135,33 @@ namespace PlantTracker.Controllers
                     CustomValueCRUD.Delete(cv);
                 }
 
+                List<PlantDAL.EDMX.Journal> journals = JournalCRUD.GetByPlantID(plant.ID);
+                foreach(var jour in journals)
+                {
+                    List<Images> jourImages = ImageCRUD.GetByJournalID(jour.ID);
+                    foreach (var img in jourImages)
+                    {
+                        ImageCRUD.Delete(img);
+                    }
+
+                    JournalCRUD.Delete(jour);
+                }
+
+                List<PlantDAL.EDMX.Plant> childrenPlants = PlantCRUD.GetByParentId(plant.ID);
+                foreach(var plt in childrenPlants)
+                {
+                    if(plt.ParentOneID == plant.ID)
+                    {
+                        plt.ParentOneID = null;
+                    }
+                    if(plt.ParentTwoID == plant.ID)
+                    {
+                        plt.ParentTwoID = null;
+                    }
+
+                    PlantCRUD.Update(plt);
+                }
+
                 PlantCRUD.Delete(plant);
             }
             catch (Exception ex)
