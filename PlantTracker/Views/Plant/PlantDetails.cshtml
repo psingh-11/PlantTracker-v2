@@ -4,12 +4,113 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Styles.Render("~/Plant_Details/css");
+@Styles.Render("~/Plant_Details/css")
 
-<h2>PlantDetails</h2>
-<hr />
+
+
+<style>
+    .breadcrumb {
+        background: #2e2f31;
+        color: #f7f7f7;
+    }
+
+    .breadcrumb-item {
+        color: #8FBC8F;
+    }
+
+    .navbar {
+        margin-bottom: 0;
+    }
+
+    body {
+        background: #3e4649;
+        color: #f7f7f7;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h1,
+    h2 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 16px;
+        color: #cdcdcd;
+    }
+
+    .jumbotron {
+        background: #27a967;
+        color: white;
+        text-align: center;
+    }
+
+        .jumbotron p {
+            color: white;
+            font-size: 26px;
+        }
+
+    .btn-danger {
+        color: #fff;
+        background-color: red;
+        border-color: white;
+        margin-bottom: 5px;
+    }
+
+        .btn-danger:hover {
+            color: red;
+            background-color: white;
+            border-color: white;
+        }
+
+    .btn-primary {
+        color: #fff;
+        background-color: transparent;
+        border-color: white;
+        margin-bottom: 5px;
+    }
+
+        .btn-primary:hover {
+            color: #27a967;
+            background-color: white;
+            border-color: white;
+        }
+
+    .navbar-inverse {
+        background: #2e2f31;
+        border: 0;
+    }
+
+        .navbar-inverse .navbar-nav li a {
+            color: #f7f7f7;
+            font-size: 16px;
+        }
+
+            .navbar-inverse .navbar-nav li a:hover {
+                background: #27a967;
+            }
+
+    .dropdown-menu {
+        background: #2e2f31;
+        border-radius: 0;
+        border: 0;
+    }
+
+    .dropdown-menu li a {
+        padding: 10px;
+    }
+
+    .navbar-inverse .navbar-nav .dropdown-menu li a:hover {
+        background: #2c463c;
+    }
+</style>
+
+
+
+
+<br />
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
         <li class="breadcrumb-item"><a href="PlantTable">Plant Table</a></li>
         <li class="breadcrumb-item active" aria-current="page">Plant Profile</li>
     </ol>
@@ -98,14 +199,17 @@
         </div>
     </div>
 
-    <div class="btn-group">
-        <div>
-            @Html.TextBoxFor(Model => Model.Images, "", new { @type = "file", @multiple = "multiple" })
-            @Html.ValidationMessageFor(Model => Model.Images, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            <button type="button" onclick="deleteImage()">Delete Images</button>
-        </div>
+    <div class="row">
+        <br />
+        <div class="col-lg-12">
+            <div class="col-lg-3">
+                @Html.TextBoxFor(Model => Model.Images, "", new { @type = "file", @multiple = "multiple", @class = "btn btn-primary" })
+                @Html.ValidationMessageFor(Model => Model.Images, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-3">
+                <button type="button" onclick="deleteImage()" class="btn btn-danger">Delete Current Image</button>
+            </div>
+        </div>     
     </div>
 
 
@@ -153,14 +257,31 @@
                 <br />
                 @Html.DropDownListFor(m => m.ParentTwoID, Model.Plants.Select(x => new SelectListItem { Text = x.Text, Value = x.Value, Selected = x.Value.Equals(Model.ParentTwoID) }), "--None--", new { @class = "form-control" })
             </div>
-            <hr />
+            <br />
+            <div>
+                @using (Html.BeginForm("JournalDisplay", "Plant", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                <div class="row">
+                    @Html.Label("Journals for this plant")
+                    <br />
+                    <div class="col-lg-6">
+                        @Html.DropDownListFor(m => m.Journals, Model.Journals.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }), "--None--", new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="button" value="Go To Journal" class="btn btn-primary" id="btn_journal" />
+                    </div>
+                    @*@Html.ActionLink("Go to selected journal", "JournalDisplay", "JournalView", new { journalId = Model.Journals }, new { @class = "btn btn-success" });*@
+                </div>                 
+                }
+            </div>
         </div>
     </div>
+    <br />
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="Custom_Value_Plant_Info">
             <p>
                 @Html.HiddenFor(model => model.CustomValues1.ID)
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues1.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue1">
@@ -172,7 +293,7 @@
                 <br />
 
                 @Html.HiddenFor(model => model.CustomValues2.ID)
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues2.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue2">
@@ -184,7 +305,7 @@
                 <br />
 
                 @Html.HiddenFor(model => model.CustomValues3.ID)
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues3.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue3">
@@ -196,7 +317,7 @@
                 <br />
 
                 @Html.HiddenFor(model => model.CustomValues4.ID)
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues4.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue4">
@@ -208,7 +329,7 @@
                 <br />
 
                 @Html.HiddenFor(model => model.CustomValues5.ID)
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues5.Name, new { placeholder = "Custom Value Name", @class = "form-control" })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue5">
@@ -217,12 +338,15 @@
                         </div>
                     </div>
                 </div>
-                <br />
             </p>
         </div>
     </div>
-    <div class="UpdatePlant">
-        <input type="submit" value="Update" class="btn btn-default" />
+    <div class="col-lg-12">
+        <br />
+        <hr />
+        <a class="btn btn-primary" href="~/Plant/PlantTable" role="button">Back</a>
+        <input type="submit" value="Update" class="btn btn-primary" />
+        <button type="button" onclick="deletePlant()" class="btn btn-danger">Delete Plant</button>
     </div>
 }
 

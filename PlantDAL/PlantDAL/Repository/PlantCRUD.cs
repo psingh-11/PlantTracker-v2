@@ -53,11 +53,21 @@ namespace PlantDAL.Repository
             }
         }
 
-        public static void Delete()
+        public static void Delete(Plant plant)
         {
-            using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+            try
             {
-
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    ctx.Plant.Attach(plant);
+                    ctx.Plant.Remove(plant);
+                    ctx.Entry(plant).State = System.Data.Entity.EntityState.Deleted;
+                    ctx.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
             }
         }
 
@@ -128,8 +138,6 @@ namespace PlantDAL.Repository
 
             return plants;
         }
-
-
 
 
         static bool IsOperator(string query)

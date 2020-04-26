@@ -4,9 +4,100 @@
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
+
+
+
+<style>
+    .breadcrumb {
+        background: #2e2f31;
+        color: #f7f7f7;
+    }
+
+        .breadcrumb-item {
+            color: #8FBC8F;
+        }
+
+    .navbar {
+        margin-bottom: 0;
+    }
+
+    body {
+        background: #3e4649;
+        color: #8FBC8F;
+        /*color: #f7f7f7;*/
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h1,
+    h2 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 16px;
+        color: #cdcdcd;
+    }
+
+    .jumbotron {
+        background: #27a967;
+        color: white;
+        text-align: center;
+    }
+
+    .jumbotron p {
+        color: white;
+        font-size: 26px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: transparent;
+        border-color: white;
+        margin-bottom: 5px;
+    }
+
+    .btn-primary:hover {
+        color: #27a967;
+        background-color: white;
+        border-color: white;
+    }
+
+    .navbar-inverse {
+        background: #2e2f31;
+        border: 0;
+    }
+
+    .navbar-inverse .navbar-nav li a {
+        color: #f7f7f7;
+        font-size: 16px;
+    }
+
+    .navbar-inverse .navbar-nav li a:hover {
+        background: #27a967;
+    }
+
+    .dropdown-menu {
+        background: #2e2f31;
+        border-radius: 0;
+        border: 0;
+    }
+
+    .dropdown-menu li a {
+        padding: 10px;
+    }
+
+    .navbar-inverse .navbar-nav .dropdown-menu li a:hover {
+        background: #2c463c;
+    }
+</style>
+
+
+
+
+
+<h2>@ViewBag.Title</h2>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -39,11 +130,16 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Log in" class="btn btn-default" />
+                        <br />
+                        <br />
+                        <p>
+                            @Html.ActionLink("Register as a new user", "Register")
+                        </p>
                     </div>
                 </div>
-                <p>
+                @*<p>
                     @Html.ActionLink("Register as a new user", "Register")
-                </p>
+                </p>*@
                 @* Enable this once you have account confirmation enabled for password reset functionality
                     <p>
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
@@ -51,11 +147,11 @@
             }
         </section>
     </div>
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
-    </div>
+    </div>*@
 </div>
 
 @section Scripts {

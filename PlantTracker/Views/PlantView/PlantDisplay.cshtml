@@ -7,21 +7,110 @@
         ViewBag.logOff = true;
     }
 }
+@Styles.Render("~/Plant_Details/css")
 
-@Styles.Render("~/Plant_Details/css");
 
-<hr />
+
+
+<style>
+    .breadcrumb {
+        background: #2e2f31;
+        color: #f7f7f7;
+    }
+
+    .breadcrumb-item {
+        color: #8FBC8F;
+    }
+
+    .navbar {
+        margin-bottom: 0;
+    }
+
+    body {
+        background: #3e4649;
+        color: #f7f7f7;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h1,
+    h2 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 16px;
+        color: #cdcdcd;
+    }
+
+    .jumbotron {
+        background: #27a967;
+        color: white;
+        text-align: center;
+    }
+
+        .jumbotron p {
+            color: white;
+            font-size: 26px;
+        }
+
+    .btn-primary {
+        color: #fff;
+        background-color: transparent;
+        border-color: white;
+        margin-bottom: 5px;
+    }
+
+        .btn-primary:hover {
+            color: #27a967;
+            background-color: white;
+            border-color: white;
+        }
+
+
+    .navbar-inverse {
+        background: #2e2f31;
+        border: 0;
+    }
+
+        .navbar-inverse .navbar-nav li a {
+            color: #f7f7f7;
+            font-size: 16px;
+        }
+
+            .navbar-inverse .navbar-nav li a:hover {
+                background: #27a967;
+            }
+
+    .dropdown-menu {
+        background: #2e2f31;
+        border-radius: 0;
+        border: 0;
+    }
+
+        .dropdown-menu li a {
+            padding: 10px;
+        }
+
+    .navbar-inverse .navbar-nav .dropdown-menu li a:hover {
+        background: #2c463c;
+    }
+</style>
+
+
+
+
 
 @if (User.Identity.IsAuthenticated == true)
 {
+    <br />
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
             <li class="breadcrumb-item"><a href="/Plant/PlantTable">Plant Table</a></li>
             <li class="breadcrumb-item active" aria-current="page">Plant Profile</li>
         </ol>
     </nav>
 }
-
 <hr />
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -94,6 +183,7 @@
     <br />
     <hr />
     <br />
+
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="PlantDetailsInfo">
             <div class="Name">
@@ -149,16 +239,33 @@
                 else
                 {
                     var plantParent = PlantDAL.Repository.PlantCRUD.GetByID(Guid.Parse(Model.ParentTwoID));
-                    @Html.TextBox("Parent Two", plantParent.Name,  new { placeholder = "Parent one", @class = "form-control", @readonly = true })
+                    @Html.TextBox("Parent Two", plantParent.Name, new { placeholder = "Parent one", @class = "form-control", @readonly = true })
                 }
             </div>
-            <hr />
+            <br />
+            <div>
+                <div class="row">
+                    @Html.Label("Journals for this plant")
+                    <br />
+                    <div class="col-lg-6">
+                        @Html.DropDownListFor(m => m.Journals, Model.Journals.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }), "--None--", new { @class = "form-control", @readonly = true })
+
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="button" value="Go To Journal" class="btn btn-primary" id="btn_journal" />
+                    </div>
+                </div>
+                @*@Html.ActionLink("Go to selected journal", "JournalDisplay", "JournalView", new { journalId = Model.Journals }, new { @class = "btn btn-success" });*@
+            </div>
+
         </div>
     </div>
+
+
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="Custom_Value_Plant_Info">
             <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue1" aria-expanded="false" aria-controls="CustomValue1">Custom Value 1</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues1.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue1">
@@ -169,7 +276,7 @@
                 </div>
                 <br />
 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue2" aria-expanded="false" aria-controls="CustomValue2">Custom Value 2</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues2.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue2">
@@ -180,7 +287,7 @@
                 </div>
                 <br />
 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue3" aria-expanded="false" aria-controls="CustomValue3">Custom Value 3</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues3.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue3">
@@ -192,7 +299,7 @@
                 <br />
 
 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue4" aria-expanded="false" aria-controls="CustomValue4">Custom Value 4</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues4.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue4">
@@ -204,7 +311,7 @@
                 <br />
 
 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
+                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#CustomValue5" aria-expanded="false" aria-controls="CustomValue5">Custom Value 5</button><br /><br />
                 @Html.TextBoxFor(m => m.CustomValues5.Name, new { placeholder = "Custom Value Name", @class = "form-control", @readonly = true })
                 <div class="col">
                     <div class="collapse multi-collapse" id="CustomValue5">
@@ -217,13 +324,14 @@
             </p>
         </div>
     </div>
-    <div class="UpdatePlant">
 
+    <div class="UpdatePlant col-lg-12">
+        <hr />
         @if (User.Identity.IsAuthenticated == true)
         {
-            @Html.ActionLink("Edit Plant", "PlantDetails", "Plant", new { PlantID = Model.ID.ToString() }, new { @class = "btn btn-success" });
+            <a class="btn btn-primary" href="~/Plant/PlantTable" role="button">Back</a>
+            @Html.ActionLink("Edit Plant", "PlantDetails", "Plant", new { PlantID = Model.ID.ToString() }, new { @class = "btn btn-primary" });
         }
-
     </div>
 }
 

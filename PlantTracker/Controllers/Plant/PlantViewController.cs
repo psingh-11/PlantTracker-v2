@@ -49,6 +49,16 @@ namespace PlantTracker.Controllers.Plant
                 });
             }
 
+            List<PlantDAL.EDMX.Journal> journalList = JournalCRUD.GetByPlantID(dto.ID);
+            foreach (var jour in journalList)
+            {
+                dto.Journals.Add(new SelectListItem
+                {
+                    Text = jour.Name,
+                    Value = jour.ID.ToString()
+                });
+            }
+
             if (plant.CustomValueOneID != null || plant.CustomValueOneID == Guid.Empty)
             {
                 plant.CustomValues = CustomValueCRUD.GetByID(plant.CustomValueOneID);

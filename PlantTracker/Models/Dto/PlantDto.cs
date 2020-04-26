@@ -17,6 +17,8 @@ namespace PlantTracker.Models.Dto
         public string ParentTwoID { get; set; }
 
         public List<SelectListItem> Plants { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Journals { get; set; } = new List<SelectListItem>();
+
         public string Name { get; set; }
         public int Count { get; set; }
         public string Type { get; set; }

@@ -25,11 +25,21 @@ namespace PlantDAL.Repository
             }
         }
 
-        public static void Delete()
+        public static void Delete(CustomValues cv)
         {
-            using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+            try
             {
-
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    ctx.CustomValues.Attach(cv);
+                    ctx.CustomValues.Remove(cv);
+                    ctx.Entry(cv).State = System.Data.Entity.EntityState.Deleted;
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
             }
         }
 

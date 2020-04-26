@@ -1,0 +1,245 @@
+﻿@model  PlantTracker.Models.Dto.JournalDto
+@{
+    ViewBag.Title = "JournalView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!User.Identity.IsAuthenticated)
+    {
+        ViewBag.logOff = true;
+    }
+}
+@Styles.Render("~/Plant_Details/css")
+
+
+
+
+<style>
+    .breadcrumb {
+        background: #2e2f31;
+        color: #f7f7f7;
+    }
+
+    .breadcrumb-item {
+        color: #8FBC8F;
+    }
+
+
+    .navbar {
+        margin-bottom: 0;
+    }
+
+    body {
+        background: #3e4649;
+        color: #f7f7f7;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h1,
+    h2 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 16px;
+        color: #cdcdcd;
+    }
+
+    .jumbotron {
+        background: #27a967;
+        color: white;
+        text-align: center;
+    }
+
+        .jumbotron p {
+            color: white;
+            font-size: 26px;
+        }
+
+    .btn-primary {
+        color: #fff;
+        background-color: transparent;
+        border-color: white;
+        margin-bottom: 5px;
+    }
+
+        .btn-primary:hover {
+            color: #27a967;
+            background-color: white;
+            border-color: white;
+        }
+
+    .navbar-inverse {
+        background: #2e2f31;
+        border: 0;
+    }
+
+        .navbar-inverse .navbar-nav li a {
+            color: #f7f7f7;
+            font-size: 16px;
+        }
+
+            .navbar-inverse .navbar-nav li a:hover {
+                background: #27a967;
+            }
+
+    .dropdown-menu {
+        background: #2e2f31;
+        border-radius: 0;
+        border: 0;
+    }
+
+        .dropdown-menu li a {
+            padding: 10px;
+        }
+
+    .navbar-inverse .navbar-nav .dropdown-menu li a:hover {
+        background: #2c463c;
+    }
+</style>
+
+
+
+
+@if (User.Identity.IsAuthenticated == true)
+{
+    <br />
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Journal/JournalTable">Journal Table</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Journal Profile</li>
+        </ol>
+    </nav>
+}
+<hr />
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Journal Profile</h1>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("JournalDetails", "Journal", FormMethod.Get, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    <div>
+        @Html.HiddenFor(model => model.ID)
+
+        @if (Model.imageFilePath != null)
+        {
+            for (int i = 0; i < Model.imageFilePath.Count; i++)
+            {
+
+                @Html.HiddenFor(model => model.imageFilePath[i])
+            }
+        }
+
+
+    </div>
+    <div class="container">
+        <br>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                @{
+                    var Counter = 0;
+                }
+                @if (Model.Images != null || Model.Images.Count > 0)
+                {
+                    foreach (var m in Model.Images)
+                    {
+                        if (Counter == 0)
+                        {
+                            <li data-target="#myCarousel" data-slide-to=@Counter class="active"></li>
+                        }
+                        else
+                        {
+                            <li data-target="#myCarousel" data-slide-to=@Counter></li>
+                        }
+                        Counter++;
+                    }
+                }
+
+
+                @*<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>*@
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                @{
+                    var CounterImg = 0;
+                }
+                @if (Model.imageFilePath != null)
+                {
+                    foreach (var m in Model.imageFilePath)
+                    {
+                        if (CounterImg == 0)
+                        {
+                            <div class="item active" style="background-image: url(@m)"></div>
+
+                        }
+                        else
+                        {
+                            <div class="item " style="background-image: url(@m)"></div>
+                        }
+                        CounterImg++;
+                    }
+                }
+            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <br />
+    <hr />
+    <div class="editjournalInfo">
+        <div class="Name">
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control", @readonly = true })
+        </div>
+        <br />
+        <div class="Notes">
+            @Html.TextAreaFor(m => m.Notes, new { placeholder = "Notes", @class = "form-control", @readonly = true })
+        </div>
+        <br />
+        <div class="PlantSelect">
+            <div class="row">
+                @Html.Label("Plant")
+                <br />
+                @if (User.Identity.IsAuthenticated == true)
+                {
+                    <div class="col-lg-3">
+                        @Html.DropDownListFor(m => m.PlantId, Model.Plants.Select(x => new SelectListItem { Text = x.Text, Value = x.Value, Selected = x.Value.Equals(Model.PlantId) }), "--None--", new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="button" value="Go To Plant" class="btn btn-success" id="btn_plant" />
+                    </div>
+
+                }
+                else
+                {
+                    var plant = PlantDAL.Repository.PlantCRUD.GetByID(Model.PlantId);
+                    @Html.TextBox("Plant", plant.Name, new { placeholder = "Plant", @class = "form-control", @readonly = true })
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="col-lg-12">
+        <hr />
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            @Html.ActionLink("Edit Journal", "JournalDetails", "Journal", new { JournalID = Model.ID.ToString() }, new { @class = "btn btn-primary" });
+            <a class="btn btn-primary" href="~/Journal/JournalTable" role="button">Back</a>
+        }
+    </div>
+
+
+
+}
+
+@Scripts.Render("~/Journal_Details/js")

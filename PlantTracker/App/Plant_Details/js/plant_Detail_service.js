@@ -25,6 +25,31 @@
             });
 
             return r;
+        },
+
+        DeletePlant: function (plantId, filePath) {
+
+            var errorMsg = "Missing a parameter!";
+            if (plantId == null) { throw errorMsg; return; }
+
+            var pack = {
+                "PlantId": plantId,
+                "FilePath": filePath
+            };
+            var r = toolbox.CreateAjaxResponse();
+            $.ajax({
+                type: "POST",
+                url: toolbox.GetLocationUrl() + "/Plant/DeletePlant",
+                dataType: "json",
+                data: JSON.stringify(pack),
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                cache: false
+            }).done(function (result) {
+                r._JsonResultHelper(result);
+            });
+
+            return r;
         }
     };
 

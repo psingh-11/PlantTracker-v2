@@ -64,6 +64,26 @@ namespace PlantDAL.Repository
             return img;
         }
 
+        public static Images GetByFilePathAndJournalId(string journalId, string filePath)
+        {
+            Images img = new Images();
+            Guid jId = Guid.Parse(journalId);
+
+            try
+            {
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    img = ctx.Images.FirstOrDefault(x => x.JournalID == jId && x.ImageFilePath == filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+
+            return img;
+        }
+
         public static Images GetByID(Guid imgID)
         {
             Images img = new Images();
@@ -80,7 +100,7 @@ namespace PlantDAL.Repository
             List<Images> images = new List<Images>();
             using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
             {
-
+                images = ctx.Images.Where(x => x.JournalID == journalID).ToList();
             }
 
             return images;

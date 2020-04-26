@@ -82,11 +82,91 @@ namespace PlantTracker.Controllers
             return RedirectToAction("PlantTable");
         }
 
+
         [HttpPost]
-        public ActionResult GetPlantDetails(string PlantID)
+        public ActionResult DeletePlant(string PlantId, string FilePath)
         {
-            return RedirectToAction("PlantDetails", new { plantId = PlantID });
+            try
+            {       
+                var curUrl = ConfigurationManager.AppSettings["url"].TrimEnd('/');
+                var pathDelete = FilePath.Replace(curUrl, "").Replace("/", "\\");
+
+                var serverDir = Server.MapPath("/").TrimEnd('\\');
+                var fileDel = serverDir + pathDelete;
+
+                int idx = fileDel.IndexOf(PlantId);
+                if(idx != -1)
+                {
+                    fileDel = fileDel.Substring(0, idx + 36);
+                    System.IO.Directory.Delete(fileDel, true);
+                }
+                Guid plantId = Guid.Parse(PlantId);
+                PlantDAL.EDMX.Plant plant = PlantCRUD.GetByID(plantId);
+                List<Images> images = ImageCRUD.GetByPlantID(plantId);
+                foreach(var img in images)
+                {
+                    ImageCRUD.Delete(img);
+                }
+
+
+                if(plant.CustomValueOneID != null)
+                {
+                    CustomValues cv = CustomValueCRUD.GetByID(plant.CustomValueOneID);
+                    CustomValueCRUD.Delete(cv);
+                }
+                if (plant.CustomValueTwoD != null)
+                {
+                    CustomValues cv = CustomValueCRUD.GetByID(plant.CustomValueTwoD);
+                    CustomValueCRUD.Delete(cv);
+                }
+                if (plant.CustomValueThreeID != null)
+                {
+                    CustomValues cv = CustomValueCRUD.GetByID(plant.CustomValueThreeID);
+                    CustomValueCRUD.Delete(cv);
+                }
+                if (plant.CustomValueFourID != null)
+                {
+                    CustomValues cv = CustomValueCRUD.GetByID(plant.CustomValueFourID);
+                    CustomValueCRUD.Delete(cv);
+                }
+                if (plant.CustomValueFiveID != null)
+                {
+                    CustomValues cv = CustomValueCRUD.GetByID(plant.CustomValueFiveID);
+                    CustomValueCRUD.Delete(cv);
+                }
+
+                PlantCRUD.Delete(plant);
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+
+            return Json(new { IsError = false, message = "success", data = true }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult DeleteImage(string PlantId, string FilePath)
+        {
+            var curUrl = ConfigurationManager.AppSettings["url"].TrimEnd('/');
+            var pathDelete = FilePath.Replace(curUrl, "").Replace("/", "\\");
+            try
+            {
+                var serverDir = Server.MapPath("/").TrimEnd('\\');
+                var fileDel = serverDir + pathDelete;
+                System.IO.File.Delete(fileDel);
+
+                Images img = ImageCRUD.GetByFilePathAndPlantId(PlantId, fileDel);
+                ImageCRUD.Delete(img);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(new { IsError = false, message = "success", data = true }, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpGet]
         public ActionResult PlantDetails(string plantId)
@@ -105,6 +185,17 @@ namespace PlantTracker.Controllers
                     Value = plt.ID.ToString()
                 });
             }
+
+            List<PlantDAL.EDMX.Journal> journalList = JournalCRUD.GetByPlantID(dto.ID);
+            foreach(var jour in journalList)
+            {
+                dto.Journals.Add(new SelectListItem
+                {
+                    Text = jour.Name,
+                    Value = jour.ID.ToString()
+                });
+            }
+
 
             List<Images> imgs = ImageCRUD.GetByPlantID(Guid.Parse(plantId));
             
@@ -149,28 +240,6 @@ namespace PlantTracker.Controllers
             }
 
             return View(dto);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteImage(string PlantId, string FilePath)
-        {
-            var curUrl = ConfigurationManager.AppSettings["url"].TrimEnd('/');
-            var pathDelete = FilePath.Replace(curUrl, "").Replace("/", "\\");
-            try
-            {
-                var serverDir = Server.MapPath("/").TrimEnd('\\');
-                var fileDel = serverDir +  pathDelete;
-                System.IO.File.Delete(fileDel);
-
-                Images img = ImageCRUD.GetByFilePathAndPlantId(PlantId, fileDel);
-                ImageCRUD.Delete(img);
-            }
-            catch(Exception ex)
-            {
-
-            }
-
-            return Json(new { IsError = false, message = "success", data = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

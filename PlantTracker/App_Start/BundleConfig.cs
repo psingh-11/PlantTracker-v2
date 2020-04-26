@@ -31,8 +31,9 @@ namespace PlantTracker
                 "~/Scripts/dataTable.min.js",
                 "~/app/Plant_table/js/plant_table.js",
                  "~/app/Plant_table/js/plant_table_service.js",
-                "~/app/common/js/toolbox.js"
-
+                "~/app/common/js/toolbox.js",
+                "~/app/Journal_table/js/journal_table_service.js",
+                "~/app/Journal_table/js/journal_table.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Plant_Details/css").Include(
@@ -42,6 +43,12 @@ namespace PlantTracker
                    "~/app/common/js/toolbox.js",
                     "~/App/Plant_Details/js/plant_detail.js",
                     "~/App/Plant_Details/js/plant_Detail_service.js"
+                    ));
+
+            bundles.Add(new StyleBundle("~/Journal_Details/js").Include(
+                   "~/app/common/js/toolbox.js",
+                    "~/App/Journal_Details/js/journal_detail.js",
+                    "~/App/Journal_Details/js/journal_Detail_service.js"
                     ));
 
 

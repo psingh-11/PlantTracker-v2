@@ -178,6 +178,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Journal\JournalController.cs" />
+    <Compile Include="Controllers\Journal\JournalViewController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Plant\PlantController.cs" />
     <Compile Include="Controllers\Plant\PlantViewController.cs" />
@@ -186,9 +188,12 @@
     </Compile>
     <Compile Include="Mappers\CustomValueMapper.cs" />
     <Compile Include="Mappers\ImageMapper.cs" />
+    <Compile Include="Mappers\JournalMapper.cs" />
     <Compile Include="Mappers\PlantMapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dto\CustomValueDto.cs" />
+    <Compile Include="Models\Dto\JournalDto.cs" />
+    <Compile Include="Models\Dto\JournalTableDto.cs" />
     <Compile Include="Models\Dto\ParentPlantSelect.cs" />
     <Compile Include="Models\Dto\PlantTableDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -199,6 +204,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\common\js\toolbox.js" />
+    <Content Include="App\Journal_Details\js\journal_detail.js" />
+    <Content Include="App\Journal_Details\js\journal_detail_service.js" />
+    <Content Include="App\Journal_table\js\journal_table.js" />
+    <Content Include="App\Journal_table\js\journal_table_service.js" />
     <Content Include="App\Plant_Details\css\plant_detail.css" />
     <Content Include="App\Plant_Details\js\plant_detail.js" />
     <Content Include="App\Plant_Details\js\plant_Detail_service.js" />
@@ -265,11 +274,14 @@
     <Content Include="Views\Plant\PlantDetails.cshtml" />
     <Content Include="Views\Plant\NewPlant.cshtml" />
     <Content Include="Views\PlantView\PlantDisplay.cshtml" />
+    <Content Include="Views\Journal\JournalTable.cshtml" />
+    <Content Include="Views\Journal\NewJournal.cshtml" />
+    <Content Include="Views\Journal\JournalDetails.cshtml" />
+    <Content Include="Views\JournalView\JournalDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Plant\" />
-    <Folder Include="Views\Journal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
