@@ -259,20 +259,20 @@
             </div>
             <br />
             <div>
-                @using (Html.BeginForm("JournalDisplay", "Plant", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
-                {
+                @*@using (Html.BeginForm("JournalDisplay", "Plant", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {*@
                 <div class="row">
                     @Html.Label("Journals for this plant")
                     <br />
-                    <div class="col-lg-6">
+                    <div id="journalDropdown" class="col-lg-6">
                         @Html.DropDownListFor(m => m.Journals, Model.Journals.Select(x => new SelectListItem { Text = x.Text, Value = x.Value }), "--None--", new { @class = "form-control" })
                     </div>
                     <div class="col-lg-6">
-                        <input type="button" value="Go To Journal" class="btn btn-primary" id="btn_journal" />
+                        <input type="button" value="Go To Journal" class="btn btn-primary" id="btn_journal" onclick="findJournals()"/>
                     </div>
                     @*@Html.ActionLink("Go to selected journal", "JournalDisplay", "JournalView", new { journalId = Model.Journals }, new { @class = "btn btn-success" });*@
                 </div>                 
-                }
+               @* }*@
             </div>
         </div>
     </div>

@@ -15,6 +15,20 @@
   
 });
 
+
+var findJournals = function () {
+    var journalId = $('#Journals').val();
+
+    plantDetailService.FindJournals(journalId).done(function (e) {
+        var data = e.data;
+        
+    }).fail(function (e) {
+        alert("Plant failed to delete");
+    }).always(function (e) {
+        //alert("always");
+    });
+}
+
 var deletePlant = function () {
     var carousel = $('#myCarousel .carousel-inner');
     var items = carousel.find('.active');

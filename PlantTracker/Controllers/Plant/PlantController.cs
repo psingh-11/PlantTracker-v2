@@ -291,35 +291,70 @@ namespace PlantTracker.Controllers
             PlantDAL.EDMX.Plant plant = Mappers.PlantMapper.MapDtoToDAL(plantDto, imgList);
             plant.UserID = User.Identity.GetUserId();
 
-            if (plantDto.CustomValues1 != null)
+            if (plantDto.CustomValues1.Name != null && plantDto.CustomValues1.Notes != null)
             {
+                if(plantDto.CustomValues1.ID == Guid.Empty)
+                {
+                    plantDto.CustomValues1.ID = Guid.NewGuid();
+                }
+                
                 CustomValues cv1 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues1, 1) as CustomValues;
                 plant.CustomValues = cv1;
                 plant.CustomValueOneID = cv1.ID;
+
+                CustomValueCRUD.Update(cv1);
             }
-            if (plantDto.CustomValues2 != null)
+            if (plantDto.CustomValues2.Name != null && plantDto.CustomValues2.Name != null)
             {
+                if (plantDto.CustomValues2.ID == Guid.Empty)
+                {
+                    plantDto.CustomValues2.ID = Guid.NewGuid();
+                }
+
                 CustomValues cv2 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues2, 2) as CustomValues;
                 plant.CustomValues1 = cv2;
                 plant.CustomValueTwoD = cv2.ID;
+
+                CustomValueCRUD.Update(cv2);
             }
-            if (plantDto.CustomValues3 != null)
+            if (plantDto.CustomValues3.Name != null && plantDto.CustomValues3.Name != null)
             {
+                if (plantDto.CustomValues3.ID == Guid.Empty)
+                {
+                    plantDto.CustomValues3.ID = Guid.NewGuid();
+                }
+
                 CustomValues cv3 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues3, 3) as CustomValues;
                 plant.CustomValues2 = cv3;
                 plant.CustomValueThreeID = cv3.ID;
+
+                CustomValueCRUD.Update(cv3);
             }
-            if (plantDto.CustomValues4 != null)
+            if (plantDto.CustomValues4.Name != null && plantDto.CustomValues4.Name != null)
             {
+                if (plantDto.CustomValues4.ID == Guid.Empty)
+                {
+                    plantDto.CustomValues4.ID = Guid.NewGuid();
+                }
+
                 CustomValues cv4 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues4, 4) as CustomValues;
                 plant.CustomValues3 = cv4;
                 plant.CustomValueFourID = cv4.ID;
+
+                CustomValueCRUD.Update(cv4);
             }
-            if (plantDto.CustomValues5 != null)
+            if (plantDto.CustomValues5.Name != null && plantDto.CustomValues5.Name != null)
             {
+                if (plantDto.CustomValues5.ID == Guid.Empty)
+                {
+                    plantDto.CustomValues5.ID = Guid.NewGuid();
+                }
+
                 CustomValues cv5 = Mappers.CustomValueMapper.MapDtoToDAL(plantDto.CustomValues5, 5) as CustomValues;
                 plant.CustomValues4 = cv5;
                 plant.CustomValueFiveID = cv5.ID;
+
+                CustomValueCRUD.Update(cv5);
             }
 
             PlantCRUD.Update(plant);

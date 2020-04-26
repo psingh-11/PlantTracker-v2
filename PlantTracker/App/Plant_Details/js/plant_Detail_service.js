@@ -50,6 +50,30 @@
             });
 
             return r;
+        },
+
+        FindJournals: function (journalId) {
+
+            var errorMsg = "Missing a parameter!";
+            if (plantId == null) { throw errorMsg; return; }
+
+            var pack = {
+                "journalId": journalId,
+            };
+            var r = toolbox.CreateAjaxResponse();
+            $.ajax({
+                type: "POST",
+                url: toolbox.GetLocationUrl() + "/JournalView/JournalDisplay",
+                dataType: "json",
+                data: JSON.stringify(pack),
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                cache: false
+            }).done(function (result) {
+                r._JsonResultHelper(result);
+            });
+
+            return r;
         }
     };
 

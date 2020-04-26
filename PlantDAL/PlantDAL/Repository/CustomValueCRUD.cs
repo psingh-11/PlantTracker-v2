@@ -17,11 +17,20 @@ namespace PlantDAL.Repository
             }
         }
 
-        public static void Update()
+        public static void Update(CustomValues cv)
         {
-            using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+            try
             {
-
+                using (PlantTrackerDBEntities ctx = new PlantTrackerDBEntities())
+                {
+                    ctx.CustomValues.Attach(cv);
+                    ctx.Entry(cv).State = System.Data.Entity.EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
             }
         }
 
