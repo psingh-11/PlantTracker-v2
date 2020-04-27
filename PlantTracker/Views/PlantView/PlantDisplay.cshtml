@@ -238,8 +238,11 @@
                 }
                 else
                 {
-                    var plantParent = PlantDAL.Repository.PlantCRUD.GetByID(Guid.Parse(Model.ParentTwoID));
+                    if (!string.IsNullOrEmpty(Model.ParentTwoID))
+                    {
+                        var plantParent = PlantDAL.Repository.PlantCRUD.GetByID(Guid.Parse(Model.ParentTwoID));
                     @Html.TextBox("Parent Two", plantParent.Name, new { placeholder = "Parent one", @class = "form-control", @readonly = true })
+                    }
                 }
             </div>
             <br />
