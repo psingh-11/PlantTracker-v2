@@ -126,13 +126,23 @@ namespace PlantTracker.Controllers.Journal
             PlantDAL.EDMX.Journal journal = JournalCRUD.GetByID(Guid.Parse(journalId));
             JournalDto dto = Mappers.JournalMapper.MapDALToDto(journal);
 
-            PlantDAL.EDMX.Plant plant = PlantCRUD.GetByID(dto.PlantId);
+            //PlantDAL.EDMX.Plant plant = PlantCRUD.GetByID(dto.PlantId);
 
-            dto.Plants.Add(new SelectListItem
+            //dto.Plants.Add(new SelectListItem
+            //{
+            //    Text = plant.Name,
+            //    Value = plant.ID.ToString()
+            //});
+
+            List< PlantDAL.EDMX.Plant> plantList = PlantCRUD.GetByUserID(User.Identity.GetUserId());
+            foreach (var plant in plantList)
             {
-                Text = plant.Name,
-                Value = plant.ID.ToString()
-            });
+                dto.Plants.Add(new SelectListItem
+                {
+                    Text = plant.Name,
+                    Value = plant.ID.ToString()
+                });
+            }
 
             List<Images> imgs = ImageCRUD.GetByJournalID(Guid.Parse(journalId));
 
@@ -169,7 +179,7 @@ namespace PlantTracker.Controllers.Journal
 
             JournalCRUD.Update(journal);
 
-            return RedirectToAction("PlantTable");
+            return RedirectToAction("JournalTable");
         }
 
 
